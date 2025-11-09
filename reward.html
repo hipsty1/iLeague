@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reward — Premier League Style</title>
+
+    <!-- Bootstrap & Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --pl-purple: #37003c;
+        --pl-pink: #ff2882;
+        --pl-bg: #f7f5fb;
+        --pl-surface: #ffffff;
+        --border: #ece6f0;
+        --text: #2b2b2b;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto,
+          Arial, sans-serif;
+        background: var(--pl-bg);
+        color: var(--text);
+      }
+      /* === NAVBAR (sama seperti klasemen.html) === */
+      .pl-navbar {
+        background: #fff;
+      }
+      .brand-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 800;
+        color: var(--pl-purple);
+      }
+      .brand-badge .lion {
+        width: 28px;
+        height: 28px;
+        display: inline-block;
+        background: linear-gradient(135deg, var(--pl-purple), var(--pl-pink));
+        border-radius: 6px;
+        position: relative;
+      }
+      .brand-badge .lion::after {
+        content: "🦁";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+
+      /* Page Title */
+      .page-title {
+        font-weight: 800;
+      }
+
+      /* Reward Cards */
+      .reward-card {
+        border: 0;
+        border-radius: 1rem;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.05);
+        height: 100%;
+      }
+      .reward-card .ratio {
+        background: #e9ecef;
+      }
+      .reward-card .card-body {
+        padding: 1rem 1rem 1rem;
+      }
+      .reward-card .card-title {
+        font-weight: 700;
+        font-size: 1rem;
+      }
+      .points {
+        font-size: 0.86rem;
+        color: #6a6570;
+      }
+      .progress.progress-slim {
+        height: 6px;
+        background: #f0eef4;
+      }
+      .progress-bar {
+        background: #3d8bfd;
+      }
+
+      .coming-soon .ratio {
+        filter: grayscale(100%);
+        opacity: 0.65;
+      }
+      .coming-soon .card-body {
+        opacity: 0.75;
+      }
+      .coming-tag {
+        font-size: 0.9rem;
+        color: #888;
+      }
+
+      /* History table */
+      .history-wrap {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.05);
+      }
+      .history-wrap .head {
+        border-bottom: 1px solid #eee;
+      }
+      .table-history th {
+        color: #6d6478;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .table-history td {
+        vertical-align: middle;
+      }
+      .subtext {
+        color: #8a8191;
+        font-size: 0.9rem;
+      }
+      .btn-outline-primary {
+        border-width: 1.5px;
+      }
+
+      /* Sponsors */
+      .sponsor-strip {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.06);
+        padding: 1.5rem 1rem;
+        margin: 2.5rem 0 2.5rem;
+      }
+      .sponsor-logo {
+        filter: grayscale(100%);
+        opacity: 0.9;
+        transition: all 0.2s;
+        height: 38px;
+        max-width: 140px;
+        object-fit: contain;
+      }
+      .sponsor-logo:hover {
+        filter: none;
+        opacity: 1;
+      }
+      .sponsor-role {
+        font-size: 0.75rem;
+        color: #8b8595;
+        margin-top: 0.35rem;
+        white-space: nowrap;
+      }
+
+      /* Footer */
+      footer {
+        background: #0c0c12;
+        color: #c8c8d0;
+      }
+      footer a {
+        color: #c8c8d0;
+        text-decoration: none;
+      }
+      footer a:hover {
+        color: #fff;
+      }
+      .footer-title {
+        font-weight: 800;
+        color: #fff;
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
+      }
+      .copyright {
+        border-top: 1px solid #1e1e28;
+        color: #8f90a6;
+      }
+      .reward-card {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg pl-navbar border-bottom sticky-top">
+      <div class="container">
+        <a class="navbar-brand brand-badge" href="index.html">
+          <span class="lion"></span>
+          <span>Premier&nbsp;League</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMain"
+          aria-controls="navMain"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="klasemen.html">Klasemen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tim.html">Tim</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="reward.html">Reward</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-3">
+            <!-- Profile dropdown (shown after login) -->
+            <div class="dropdown d-none" data-auth="profile-wrap">
+              <a
+                class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                href="#"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0nZycgeDE9JzAnIHgyPScxJyB5MT0nMCcgeTI9JzEnPgogICAgICA8c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyNkOWQ5ZDknLz4KICAgICAgPHN0b3Agb2Zmc2V0PScxJyBzdG9wLWNvbG9yPScjZjJmMmYyJy8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8Y2lyY2xlIGN4PSc2NCcgY3k9JzY0JyByPSc2NCcgZmlsbD0ndXJsKCNnKScvPgogIDxjaXJjbGUgY3g9JzY0JyBjeT0nNTAnIHI9JzI2JyBmaWxsPScjYjViNWI1Jy8+CiAgPHBhdGggZD0nTTIwLDExNmE0NCw0NCAwIDAgMSA4OCwwJyBmaWxsPScjYjViNWI1Jy8+Cjwvc3ZnPg=="
+                  alt="avatar"
+                  class="rounded-circle"
+                  width="32"
+                  height="32"
+                  style="border: 1px solid #ced4da"
+                />
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li class="px-3 py-2">
+                  <div class="small text-muted">Signed in</div>
+                  <div class="fw-semibold" data-profile="email">
+                    user@example.com
+                  </div>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#profileModal"
+                    ><i class="bi bi-person-gear me-2"></i>Profil</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item text-danger"
+                    href="#"
+                    onclick="logout()"
+                    ><i class="bi bi-box-arrow-right me-2"></i>Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- Profile Modal -->
+            <div
+              class="modal fade"
+              id="profileModal"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Profil</h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="mb-3">
+                      <label class="form-label">Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        value=""
+                        data-profile="email"
+                        readonly
+                      />
+                    </div>
+                    <div class="mb-2">
+                      <label class="form-label">Password</label>
+                      <div class="input-group">
+                        <input
+                          type="password"
+                          id="profilePassword"
+                          class="form-control"
+                          value=""
+                        />
+                        <button
+                          class="btn btn-outline-secondary"
+                          type="button"
+                          onclick="togglePwd('profilePassword','eyeProfile')"
+                        >
+                          <i id="eyeProfile" class="bi bi-eye"></i>
+                        </button>
+                      </div>
+                      <div class="form-text">
+                        Klik ikon mata untuk show/hide.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onclick="saveProfilePassword()"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Save toast -->
+            <div
+              class="position-fixed bottom-0 end-0 p-3"
+              style="z-index: 1080"
+            >
+              <div
+                id="saveToast"
+                class="toast align-items-center text-bg-success border-0"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+              >
+                <div class="d-flex">
+                  <div class="toast-body">Perubahan tersimpan.</div>
+                  <button
+                    type="button"
+                    class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast"
+                    aria-label="Close"
+                  ></button>
+                </div>
+              </div>
+            </div>
+
+            <i class="bi bi-search"></i>
+            <a
+              class="btn btn-outline-dark rounded-pill px-3"
+              href="signin.html"
+              data-auth="signin-btn"
+              >Sign in</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container my-4">
+      <header class="mb-3">
+        <h1 class="page-title">Reward</h1>
+        <div class="mb-3">Point Anda: <span id="userPoints">0</span></div>
+      </header>
+
+      <!-- Reward grid (4 per row on lg+) -->
+      <section class="mb-4">
+        <div class="row g-4">
+          <!-- Card 1 -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card reward-card h-100">
+              <div class="ratio ratio-16x9">
+                <img
+                  src="https://images.unsplash.com/photo-1621634886531-c1f2b87a8e1d?q=80&w=1200&auto=format&fit=crop"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="Roblox"
+                />
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-2">Roblox Digital Card</h6>
+                <div class="points mb-2">0 of 6,750 points</div>
+                <div class="progress progress-slim">
+                  <div class="progress-bar" style="width: 0%"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <!-- Card 2 -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card reward-card h-100">
+              <div class="ratio ratio-16x9">
+                <img
+                  src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="Overwatch"
+                />
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-2">Overwatch Coins Digital Code</h6>
+                <div class="points mb-2">0 of 2,000 points</div>
+                <div class="progress progress-slim">
+                  <div class="progress-bar" style="width: 0%"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <!-- Card 3 -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card reward-card h-100">
+              <div class="ratio ratio-16x9">
+                <img
+                  src="https://images.unsplash.com/photo-1533561058965-1a8b5b12fd2c?q=80&w=1200&auto=format&fit=crop"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="Sea of Thieves"
+                />
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-2">
+                  Sea of Thieves: Ancient Coin Pack
+                </h6>
+                <div class="points mb-2">0 of 1,700 points</div>
+                <div class="progress progress-slim">
+                  <div class="progress-bar" style="width: 0%"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <!-- Card 4 -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card reward-card h-100">
+              <div class="ratio ratio-16x9">
+                <img
+                  src="https://images.unsplash.com/photo-1620659812883-641a5aa5b7d5?q=80&w=1200&auto=format&fit=crop"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="Alfamart"
+                />
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-2">Alfamart Indonesia Gift Card</h6>
+                <div class="points mb-2">0 of 7,930 points</div>
+                <div class="progress progress-slim">
+                  <div class="progress-bar" style="width: 0%"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card reward-card h-100">
+              <div class="ratio ratio-16x9">
+                <img
+                  src="https://images.unsplash.com/photo-1605901309584-818e25960a8b?q=80&w=1200&auto=format&fit=crop"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="Grab"
+                />
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-2">Grab Indonesia Gift Card</h6>
+                <div class="points mb-2">0 of 2,135 points</div>
+                <div class="progress progress-slim">
+                  <div class="progress-bar" style="width: 0%"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <!-- Card 6 -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card reward-card h-100">
+              <div class="ratio ratio-16x9">
+                <img
+                  src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="Zalora"
+                />
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-2">Zalora Gift Card</h6>
+                <div class="points mb-2">0 of 7,930 points</div>
+                <div class="progress progress-slim">
+                  <div class="progress-bar" style="width: 0%"></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <!-- Card 7 (Coming soon) -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card reward-card coming-soon h-100">
+              <div class="ratio ratio-16x9">
+                <img
+                  src="https://images.unsplash.com/photo-1611162618071-b39a2ec2cfb6?q=80&w=1200&auto=format&fit=crop"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="UNICEF"
+                />
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-1">Donate to UNICEF</h6>
+                <div class="coming-tag">Coming soon</div>
+              </div>
+            </article>
+          </div>
+          <!-- Card 8 (Coming soon) -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card reward-card coming-soon h-100">
+              <div class="ratio ratio-16x9">
+                <img
+                  src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1200&auto=format&fit=crop"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="IRC"
+                />
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-1">
+                  Donate to the International Rescue Committee
+                </h6>
+                <div class="coming-tag">Coming soon</div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Redeem History -->
+      <section class="history-wrap mb-5">
+        <div class="p-3 p-md-4 head">
+          <h5 class="mb-1 fw-bold">Redeem history</h5>
+          <small class="text-muted"
+            >Hadiah akan dikirimkan ke email anda dalam kurun waktu 1 x 24
+            jam.</small
+          >
+        </div>
+        <div class="table-responsive">
+          <table class="table table-history align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Date</th>
+                <th style="min-width: 420px">Reward</th>
+                <th>Points</th>
+                <th>Email Options</th>
+                <th>Order Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sent</td>
+                <td>10/1/2025</td>
+                <td>
+                  <div class="fw-semibold">
+                    Alfamart Indonesia Gift Card Rp 50000
+                  </div>
+                  <div class="subtext">Order No. 8asd1-da841-a99141</div>
+                </td>
+                <td>4,270</td>
+                <td><button class="btn btn-primary btn-sm">Resend</button></td>
+                <td>
+                  <button class="btn btn-primary btn-sm">Get code</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SPONSOR STRIP (sama dengan klasemen) -->
+      <section id="sponsors" class="sponsor-strip">
+        <div class="container">
+          <div
+            class="d-flex justify-content-center align-items-center flex-wrap gap-4 gap-md-5"
+          >
+            <div class="text-center">
+              <img
+                class="sponsor-logo"
+                src="https://logo.clearbit.com/ea.com"
+                alt="EA Sports"
+              />
+              <div class="sponsor-role">Lead Partner</div>
+            </div>
+            <div class="text-center">
+              <img
+                class="sponsor-logo"
+                src="https://logo.clearbit.com/adobe.com"
+                alt="Adobe"
+              />
+              <div class="sponsor-role">Official Creativity Partner</div>
+            </div>
+            <div class="text-center">
+              <img
+                class="sponsor-logo"
+                src="https://logo.clearbit.com/barclays.com"
+                alt="Barclays"
+              />
+              <div class="sponsor-role">Official Bank</div>
+            </div>
+            <div class="text-center">
+              <img
+                class="sponsor-logo"
+                src="https://logo.clearbit.com/coca-cola.com"
+                alt="Coca‑Cola"
+              />
+              <div class="sponsor-role">Official Soft Drink</div>
+            </div>
+            <div class="text-center">
+              <img
+                class="sponsor-logo"
+                src="https://logo.clearbit.com/guinness.com"
+                alt="Guinness"
+              />
+              <div class="sponsor-role">Official Beer</div>
+            </div>
+            <div class="text-center">
+              <img
+                class="sponsor-logo"
+                src="https://logo.clearbit.com/microsoft.com"
+                alt="Microsoft"
+              />
+              <div class="sponsor-role">Official Cloud &amp; AI Partner</div>
+            </div>
+            <div class="text-center">
+              <img
+                class="sponsor-logo"
+                src="https://logo.clearbit.com/puma.com"
+                alt="Puma"
+              />
+              <div class="sponsor-role">Official Ball</div>
+            </div>
+            <div class="text-center">
+              <img
+                class="sponsor-logo"
+                src="https://logo.clearbit.com/averydennison.com"
+                alt="Avery Dennison"
+              />
+              <div class="sponsor-role">Official Licensee</div>
+            </div>
+            <div class="text-center">
+              <img
+                class="sponsor-logo"
+                src="https://logo.clearbit.com/footballmanager.com"
+                alt="Football Manager"
+              />
+              <div class="sponsor-role">Official Licensee</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Redeem Confirm Modal -->
+      <div class="modal fade" id="redeemModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Konfirmasi Redeem</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p id="redeemQuestion" class="mb-0">
+                Yakin ingin menukarkan point dengan hadiah ini?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Tidak
+              </button>
+              <button type="button" class="btn btn-primary" id="btnRedeemYes">
+                Yakin
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info toast -->
+      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
+        <div
+          id="infoToast"
+          class="toast align-items-center text-bg-primary border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="d-flex">
+            <div class="toast-body" id="toastMsg">Permintaan diproses.</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER (sama seperti klasemen) -->
+    <footer class="pt-5 mt-5">
+      <div class="container pb-4">
+        <div class="row g-4">
+          <div class="col-6 col-lg-3">
+            <div class="footer-title">LIGA INDONESIA</div>
+            <ul class="list-unstyled small mb-0">
+              <li class="mb-2"><a href="index.html">Beranda</a></li>
+              <li class="mb-2">
+                <a href="#">Jadwal Dan Hasil Pertandingan</a>
+              </li>
+              <li class="mb-2"><a href="klasemen.html">Klasemen</a></li>
+              <li class="mb-2"><a href="index.html#tim">Klub</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="footer-title">MEDIA</div>
+            <ul class="list-unstyled small mb-0">
+              <li class="mb-2"><a href="#">Berita</a></li>
+              <li class="mb-2"><a href="#">Rilis</a></li>
+              <li class="mb-2"><a href="#">Foto</a></li>
+              <li class="mb-2"><a href="#">Video</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="footer-title">STATS</div>
+            <ul class="list-unstyled small mb-0">
+              <li class="mb-2"><a href="#">Booklet Mingguan</a></li>
+              <li class="mb-2"><a href="#">Aksi Top Klub</a></li>
+              <li class="mb-2"><a href="#">Aksi Top Pemain</a></li>
+              <li class="mb-2">
+                <a href="#"
+                  >Statistik Klub
+                  <span class="text-danger">Segera Hadir</span></a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#"
+                  >Statistik Pemain
+                  <span class="text-danger">Segera Hadir</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-12 col-lg-3">
+            <div class="footer-title">KONTAK KAMI</div>
+            <ul class="list-unstyled small">
+              <li class="mb-2 fw-semibold">PT Liga Indonesia Baru</li>
+              <li class="mb-2">
+                Menara Mandiri 2, Lt 19<br />Jl. Jend. Sudirman, Kav 54-55,<br />Jakarta
+                12190
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-telephone me-2"></i>+62 21 526 6777
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-telephone me-2"></i>+62 21 526 6747
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="copyright py-3">
+        <div
+          class="container small d-flex justify-content-between align-items-center"
+        >
+          <div>© 2025 ILeague. All Rights Reserved</div>
+          <a href="#" class="text-decoration-none"
+            ><i class="bi bi-arrow-up-circle"></i> Kembali ke atas</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // === Simple session using localStorage ===
+      function isLoggedIn() {
+        return localStorage.getItem("isLoggedIn") === "true";
+      }
+      function getEmail() {
+        return localStorage.getItem("authEmail") || "";
+      }
+      function getPassword() {
+        return localStorage.getItem("authPassword") || "";
+      }
+
+      function renderAuthUI() {
+        const signBtn = document.querySelector("[data-auth=signin-btn]");
+        const profileWrap = document.querySelector("[data-auth=profile-wrap]");
+
+        if (!signBtn || !profileWrap) return;
+        if (isLoggedIn()) {
+          signBtn.classList.add("d-none");
+          profileWrap.classList.remove("d-none");
+          const emailEls = document.querySelectorAll("[data-profile=email]");
+          emailEls.forEach((el) => (el.textContent = getEmail()));
+
+          const pwd = document.getElementById("profilePassword");
+          if (pwd) pwd.value = getPassword();
+        } else {
+          profileWrap.classList.add("d-none");
+          signBtn.classList.remove("d-none");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", renderAuthUI);
+
+      // Save profile changes
+      function saveProfilePassword() {
+        const input = document.getElementById("profilePassword");
+        if (!input) return;
+        localStorage.setItem("authPassword", input.value);
+        // Toast/alert
+        const toastEl = document.getElementById("saveToast");
+        if (toastEl) {
+          const t = new bootstrap.Toast(toastEl);
+          t.show();
+        } else {
+          alert("Password berhasil disimpan");
+        }
+      }
+
+      function logout() {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("authEmail");
+        localStorage.removeItem("authPassword");
+        renderAuthUI();
+      }
+
+      function togglePwd(id, eyeId) {
+        const input = document.getElementById(id);
+        const icon = document.getElementById(eyeId);
+        if (!input) return;
+        if (input.type === "password") {
+          input.type = "text";
+          if (icon) icon.classList.replace("bi-eye", "bi-eye-slash");
+        } else {
+          input.type = "password";
+          if (icon) icon.classList.replace("bi-eye-slash", "bi-eye");
+        }
+      }
+    </script>
+    <script>
+      // === Points demo ===
+      function getPoints() {
+        return parseInt(localStorage.getItem("points") || "0", 10);
+      }
+      function setPoints(v) {
+        localStorage.setItem("points", String(v));
+      }
+      function updatePointLabel() {
+        const el = document.getElementById("userPoints");
+        if (el) el.textContent = getPoints();
+      }
+
+      // Attach click listeners to reward cards
+      document.addEventListener("DOMContentLoaded", function () {
+        updatePointLabel();
+        document.querySelectorAll(".reward-card").forEach(function (card) {
+          card.addEventListener("click", function () {
+            const titleEl = card.querySelector(".card-title");
+            const pointsText = card.querySelector(".points")
+              ? card.querySelector(".points").textContent
+              : "0 of 0 points";
+            const needed = (pointsText.match(/0 of ([\d,]+)/) || [0, "0"])[1];
+            const title = titleEl ? titleEl.textContent.trim() : "Reward";
+            const q = `Yakin ingin menukarkan point dengan hadiah "${title}" ini?`;
+            document.getElementById("redeemQuestion").textContent = q;
+            const modal = new bootstrap.Modal(
+              document.getElementById("redeemModal")
+            );
+            modal.show();
+
+            document.getElementById("btnRedeemYes").onclick = function () {
+              modal.hide();
+              const toast = new bootstrap.Toast(
+                document.getElementById("infoToast")
+              );
+              const have = getPoints();
+              document.getElementById(
+                "toastMsg"
+              ).textContent = `Belum cukup poin. Poin Anda: ${have}. Diperlukan: ${needed}.`;
+              toast.show();
+            };
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Premier League Style - Index</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --pl-purple: #37003c;
+        --pl-pink: #ff2882;
+        --pl-gray: #f5f5f7;
+        --pl-dark: #111118;
+      }
+      body {
+        background-color: var(--pl-gray);
+      }
+      /* NAVBAR */
+      .pl-navbar {
+        background: #fff;
+      }
+      .brand-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 800;
+        color: var(--pl-purple);
+      }
+      .brand-badge .lion {
+        width: 28px;
+        height: 28px;
+        display: inline-block;
+        background: linear-gradient(135deg, var(--pl-purple), var(--pl-pink));
+        border-radius: 6px;
+        position: relative;
+      }
+      .brand-badge .lion::after {
+        content: "🦁";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+      .chip {
+        border: 1px solid #e9e9ef;
+        padding: 0.45rem 0.9rem;
+        border-radius: 999px;
+      }
+      /* HERO */
+      .hero-card {
+        border: 0;
+        border-radius: 1rem;
+        overflow: hidden;
+      }
+      .hero-card .img-wrap {
+        position: relative;
+        min-height: 360px;
+        background-size: cover;
+        background-position: center;
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.05) 0%,
+          rgba(0, 0, 0, 0.55) 55%,
+          rgba(0, 0, 0, 0.9) 100%
+        );
+        display: flex;
+        align-items: flex-end;
+        padding: 1.5rem;
+        color: #fff;
+      }
+      .hero-title {
+        font-weight: 800;
+        line-height: 1.05;
+        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+      }
+      .section-title {
+        font-weight: 800;
+        color: var(--pl-dark);
+      }
+      /* RIGHT SIDEBAR */
+      .story-item img {
+        width: 88px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+      }
+      .story-item {
+        --bs-list-group-border-color: transparent;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #eee;
+      }
+      .story-item:last-child {
+        border-bottom: 0;
+      }
+      /* SCOREBOARD */
+      .board {
+        border-radius: 1rem;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 0 0 1px #eee;
+      }
+      .board .head {
+        background: #fff;
+        padding: 0.9rem 1.1rem;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .badge-pill {
+        background: #f0f0f4;
+        color: #333;
+        border-radius: 999px;
+        padding: 0.25rem 0.65rem;
+        font-size: 0.75rem;
+      }
+      .fixture {
+        padding: 0.85rem 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        border-top: 1px solid #f1f1f1;
+      }
+      .fixture:first-child {
+        border-top: 0;
+      }
+      .team {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        min-width: 0;
+        flex: 1;
+      }
+      .crest {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #e8e8ef;
+        display: inline-block;
+      }
+      .team span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .score {
+        font-weight: 800;
+        min-width: 52px;
+        text-align: center;
+      }
+      .status {
+        font-size: 0.7rem;
+        color: #888;
+        min-width: 24px;
+        text-align: right;
+      }
+      /* NEWS GRID */
+      .news-card {
+        border: 0;
+        border-radius: 1rem;
+        overflow: hidden;
+        background: #fff;
+        height: 100%;
+      }
+      .news-card .ratio {
+        background: #e9ecef;
+      }
+      .news-card .card-body {
+        min-height: 110px;
+      }
+
+      /* SPONSOR STRIP (baru) */
+      .sponsor-strip {
+        background: #fff;
+        box-shadow: 0 0 0 1px #eee;
+        border-radius: 1rem;
+      }
+      .sponsor-logo {
+        height: 36px;
+        max-width: 140px;
+        object-fit: contain;
+        filter: grayscale(100%);
+        opacity: 0.9;
+        transition: all 0.2s;
+      }
+      .sponsor-logo:hover {
+        filter: none;
+        opacity: 1;
+      }
+      .sponsor-role {
+        font-size: 0.75rem;
+        color: #787b86;
+        margin-top: 0.25rem;
+        white-space: nowrap;
+      }
+
+      /* FOOTER */
+      footer {
+        background: #0c0c12;
+        color: #c8c8d0;
+      }
+      footer a {
+        color: #c8c8d0;
+        text-decoration: none;
+      }
+      footer a:hover {
+        color: #fff;
+      }
+      .footer-title {
+        font-weight: 800;
+        color: #fff;
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
+      }
+      .copyright {
+        border-top: 1px solid #1e1e28;
+        color: #8f90a6;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR (disederhanakan: Klasemen, Tim, Reward) -->
+    <nav class="navbar navbar-expand-lg pl-navbar border-bottom sticky-top">
+      <div class="container">
+        <a class="navbar-brand brand-badge" href="#">
+          <span class="lion"></span>
+          <span>Premier&nbsp;League</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMain"
+          aria-controls="navMain"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="klasemen.html">Klasemen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tim.html">Tim</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reward.html">Reward</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-3">
+<!-- Profile dropdown (shown after login) -->
+<div class="dropdown d-none" data-auth="profile-wrap">
+  <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB4Mj0nMScgeTE9JzAnIHkyPScxJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyNkOWQ5ZDknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyNmMmYyZjInLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48Y2lyY2xlIGN4PSc2NCcgY3k9JzY0JyByPSc2NCcgZmlsbD0ndXJsKCNnKScvPjxjaXJjbGUgY3g9JzY0JyBjeT0nNTAnIHI9JzI2JyBmaWxsPScjYjViNWI1Jy8+PHBhdGggZD0nTTIwLDExNmE0NCw0NCAwIDAgMSA4OCwwJyBmaWxsPScjYjViNWI1Jy8+PC9zdmc+" alt="avatar" class="rounded-circle" width="32" height="32" style="border:1px solid #ced4da;"/>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li class="px-3 py-2">
+      <div class="small text-muted">Signed in</div>
+      <div class="fw-semibold" data-profile="email">user@example.com</div>
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="profil.html"><i class="bi bi-person-gear me-2"></i>Profil</a></li>
+    <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+  </ul>
+</div>
+
+            <i class="bi bi-search"></i>
+            <a class="btn btn-outline-dark rounded-pill px-3" href="signin.html" data-auth="signin-btn"
+              >Sign in</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container my-4">
+      <div class="row g-4">
+        <!-- LEFT: HERO -->
+        <div class="col-lg-8">
+          <div class="card hero-card shadow-sm mb-4">
+            <div
+              class="img-wrap"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1543322748-33df6d3db806?q=80&w=1200&auto=format&fit=crop');
+              "
+            >
+              <div class="hero-overlay">
+                <div>
+                  <span class="badge text-bg-light text-dark rounded-pill mb-2"
+                    >Match report</span
+                  >
+                  <h1 class="display-6 hero-title mb-2">
+                    Hendri Hitam! Dikatain Rasis Malah Melawan Aparat.
+                  </h1>
+                  <p class="mb-0">
+                    Hidup blonde is the best statement of the year.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Latest News grid -->
+          <h2 class="section-title mb-3">Latest News</h2>
+          <div class="row g-4">
+            <div class="col-md-6 col-xl-3">
+              <article class="card news-card shadow-sm">
+                <div class="ratio ratio-16x9">
+                  <img
+                    src="https://images.unsplash.com/photo-1536300130190-99bc3b143fd9?q=80&w=1200&auto=format&fit=crop"
+                    class="w-100 h-100 object-fit-cover"
+                    alt="Liverpool"
+                  />
+                </div>
+                <div class="card-body">
+                  <a href=""><h6 class="fw-bold mb-1">Berita 1</h6> </a>
+                  <small class="text-muted d-block">Match report</small>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <article class="card news-card shadow-sm">
+                <div class="ratio ratio-16x9">
+                  <img
+                    src="https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=1200&auto=format&fit=crop"
+                    class="w-100 h-100 object-fit-cover"
+                    alt="Injury update"
+                  />
+                </div>
+                <div class="card-body">
+                  <a href=""><h6 class="fw-bold mb-1">Berita 2</h6></a>
+                  <small class="text-muted d-block">News</small>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <article class="card news-card shadow-sm">
+                <div class="ratio ratio-16x9">
+                  <img
+                    src="https://images.unsplash.com/photo-1543329668-3ae6f9d03203?q=80&w=1200&auto=format&fit=crop"
+                    class="w-100 h-100 object-fit-cover"
+                    alt="Arsenal clean sheet"
+                  />
+                </div>
+                <div class="card-body">
+                  <a href=""><h6 class="fw-bold mb-1">Berita 3</h6></a>
+                  <small class="text-muted d-block">News</small>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <article class="card news-card shadow-sm">
+                <div class="ratio ratio-16x9">
+                  <img
+                    src="https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=1200&auto=format&fit=crop"
+                    class="w-100 h-100 object-fit-cover"
+                    alt="Chelsea vs Spurs"
+                  />
+                </div>
+                <div class="card-body">
+                  <a href=""><h6 class="fw-bold mb-1">Berita 4</h6></a>
+                  <small class="text-muted d-block">Match report</small>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="col-lg-4">
+          <div class="card shadow-sm mb-4">
+            <div class="card-body">
+              <h5 class="fw-bold mb-3">Top stories</h5>
+              <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item story-item">
+                  <div class="d-flex gap-3 align-items-center">
+                    <img
+                      src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=400&auto=format&fit=crop"
+                      alt="Bournemouth"
+                      class="flex-shrink-0"
+                    />
+                    <div class="flex-grow-1">
+                      <div class="fw-semibold">
+                        Are Bournemouth genuine title contenders if they beat
+                        Man City?
+                      </div>
+                      <small class="text-muted">Tactics and Analysis</small>
+                    </div>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item story-item">
+                  <div class="d-flex gap-3 align-items-center">
+                    <img
+                      src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=400&auto=format&fit=crop"
+                      alt="Guardiola"
+                      class="flex-shrink-0"
+                    />
+                    <div class="flex-grow-1">
+                      <div class="fw-semibold">
+                        How can Guardiola solve Man City's midfield conundrum?
+                      </div>
+                      <small class="text-muted">Tactics and Analysis</small>
+                    </div>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item story-item">
+                  <div class="d-flex gap-3 align-items-center">
+                    <img
+                      src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=400&auto=format&fit=crop"
+                      alt="Kroupi"
+                      class="flex-shrink-0"
+                    />
+                    <div class="flex-grow-1">
+                      <div class="fw-semibold">
+                        Junior Kroupi: the red-hot teenager likened to Mbappe
+                        and Aguero
+                      </div>
+                      <small class="text-muted">Features</small>
+                    </div>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item story-item">
+                  <div class="d-flex gap-3 align-items-center">
+                    <img
+                      src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=400&auto=format&fit=crop"
+                      alt="Caicedo"
+                      class="flex-shrink-0"
+                    />
+                    <div class="flex-grow-1">
+                      <div class="fw-semibold">
+                        Best in the world? Caicedo's masterclass against Spurs
+                      </div>
+                      <small class="text-muted">Features</small>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCOREBOARD -->
+          <div class="board shadow-sm mb-4">
+            <div class="head">
+              <div>
+                <div class="fw-bold">Premier League</div>
+                <small class="text-muted">Yesterday</small>
+              </div>
+              <span class="badge-pill">View all matches</span>
+            </div>
+            <div class="fixture">
+              <div class="team">
+                <span class="crest"></span><span>Brighton</span>
+              </div>
+              <div class="score">3 - 0</div>
+              <div class="team justify-content-end">
+                <span>Leeds</span><span class="crest"></span>
+              </div>
+              <div class="status">FT</div>
+            </div>
+            <div class="fixture">
+              <div class="team">
+                <span class="crest"></span><span>Burnley</span>
+              </div>
+              <div class="score">0 - 2</div>
+              <div class="team justify-content-end">
+                <span>Arsenal</span><span class="crest"></span>
+              </div>
+              <div class="status">FT</div>
+            </div>
+            <div class="fixture">
+              <div class="team">
+                <span class="crest"></span><span>Crystal Palace</span>
+              </div>
+              <div class="score">2 - 0</div>
+              <div class="team justify-content-end">
+                <span>Brentford</span><span class="crest"></span>
+              </div>
+              <div class="status">FT</div>
+            </div>
+            <div class="fixture">
+              <div class="team">
+                <span class="crest"></span><span>Fulham</span>
+              </div>
+              <div class="score">3 - 0</div>
+              <div class="team justify-content-end">
+                <span>Wolves</span><span class="crest"></span>
+              </div>
+              <div class="status">FT</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- SPONSOR STRIP (baru, sebelum footer) -->
+    <section class="container my-5">
+      <div class="sponsor-strip py-4 px-2 px-md-3">
+        <div
+          class="d-flex justify-content-center align-items-center flex-wrap gap-4 gap-md-5"
+        >
+          <div class="text-center">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/ea.com"
+              alt="EA Sports"
+            />
+            <div class="sponsor-role">Lead Partner</div>
+          </div>
+          <div class="text-center">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/adobe.com"
+              alt="Adobe"
+            />
+            <div class="sponsor-role">Official Creativity Partner</div>
+          </div>
+          <div class="text-center">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/barclays.com"
+              alt="Barclays"
+            />
+            <div class="sponsor-role">Official Bank</div>
+          </div>
+          <div class="text-center">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/coca-cola.com"
+              alt="Coca‑Cola"
+            />
+            <div class="sponsor-role">Official Soft Drink</div>
+          </div>
+          <div class="text-center">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/guinness.com"
+              alt="Guinness"
+            />
+            <div class="sponsor-role">Official Beer</div>
+          </div>
+          <div class="text-center">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/microsoft.com"
+              alt="Microsoft"
+            />
+            <div class="sponsor-role">Official Cloud &amp; AI Partner</div>
+          </div>
+          <div class="text-center">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/puma.com"
+              alt="Puma"
+            />
+            <div class="sponsor-role">Official Ball</div>
+          </div>
+          <div class="text-center">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/averydennison.com"
+              alt="Avery Dennison"
+            />
+            <div class="sponsor-role">Official Licensee</div>
+          </div>
+          <div class="text-center">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/footballmanager.com"
+              alt="Football Manager"
+            />
+            <div class="sponsor-role">Official Licensee</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER (tanpa 'Unduh' & 'Media Sosial') -->
+    <footer class="pt-5 mt-5">
+      <div class="container pb-4">
+        <div class="row g-4">
+          <div class="col-6 col-lg-3">
+            <div class="footer-title">LIGA INDONESIA</div>
+            <ul class="list-unstyled small mb-0">
+              <li class="mb-2"><a href="#">Beranda</a></li>
+              <li class="mb-2">
+                <a href="#">Jadwal Dan Hasil Pertandingan</a>
+              </li>
+              <li class="mb-2"><a href="#klasemen">Klasemen</a></li>
+              <li class="mb-2"><a href="#tim">Klub</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="footer-title">MEDIA</div>
+            <ul class="list-unstyled small mb-0">
+              <li class="mb-2"><a href="#">Berita</a></li>
+              <li class="mb-2"><a href="#">Rilis</a></li>
+              <li class="mb-2"><a href="#">Foto</a></li>
+              <li class="mb-2"><a href="#">Video</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="footer-title">STATS</div>
+            <ul class="list-unstyled small mb-0">
+              <li class="mb-2"><a href="#">Booklet Mingguan</a></li>
+              <li class="mb-2"><a href="#">Aksi Top Klub</a></li>
+              <li class="mb-2"><a href="#">Aksi Top Pemain</a></li>
+              <li class="mb-2">
+                <a href="#"
+                  >Statistik Klub
+                  <span class="text-danger">Segera Hadir</span></a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#"
+                  >Statistik Pemain
+                  <span class="text-danger">Segera Hadir</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-12 col-lg-3">
+            <div class="footer-title">KONTAK KAMI</div>
+            <ul class="list-unstyled small">
+              <li class="mb-2 fw-semibold">PT Liga Indonesia Baru</li>
+              <li class="mb-2">
+                Menara Mandiri 2, Lt 19<br />Jl. Jend. Sudirman, Kav 54-55,<br />Jakarta
+                12190
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-telephone me-2"></i>+62 21 526 6777
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-telephone me-2"></i>+62 21 526 6747
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="copyright py-3">
+        <div
+          class="container small d-flex justify-content-between align-items-center"
+        >
+          <div>© 2025 ILeague. All Rights Reserved</div>
+          <a href="#" class="text-decoration-none"
+            ><i class="bi bi-arrow-up-circle"></i> Kembali ke atas</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+// === Points utility ===
+function getPoints(){ return parseInt(localStorage.getItem('points') || '0', 10); }
+function setPoints(v){ localStorage.setItem('points', String(v)); }
+// Award points with toast
+function awardPoints(amount, reason){
+  const now = getPoints() + amount;
+  setPoints(now);
+  // Show toast if host page has a toast container
+  let tEl = document.getElementById('pointsToast');
+  if(!tEl){
+    const wrap = document.createElement('div');
+    wrap.className = 'position-fixed bottom-0 end-0 p-3'; wrap.style.zIndex = '1080'; wrap.innerHTML = `
+      <div id="pointsToast" class="toast text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body" id="pointsToastMsg"></div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>`;
+    document.body.appendChild(wrap);
+    tEl = document.getElementById('pointsToast');
+  }
+  document.getElementById('pointsToastMsg').textContent = `+${amount} poin ${reason ? '('+reason+')' : ''}. Total: ${now}`;
+  (new bootstrap.Toast(tEl)).show();
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  // Clicks on news cards & top stories
+  document.querySelectorAll('.news-card a, .story-item, .hero-card .img-wrap').forEach(function(el){
+    el.addEventListener('click', function(ev){
+      awardPoints(10, 'baca berita');
+      // allow navigation; if href="#" prevent to avoid jumping
+      if(el.matches('.story-item')) ev.preventDefault();
+    });
+  });
+});
+
+// === Simple session using localStorage ===
+function isLoggedIn(){ return localStorage.getItem('isLoggedIn') === 'true'; }
+function getEmail(){ return localStorage.getItem('authEmail') || ''; }
+function getPassword(){ return localStorage.getItem('authPassword') || ''; }
+function isAdmin(){ return localStorage.getItem('isAdmin') === 'true'; }
+
+function renderAuthUI(){
+  const signBtn = document.querySelector('[data-auth=signin-btn]');
+  const profileWrap = document.querySelector('[data-auth=profile-wrap]');
+  if(signBtn && profileWrap){
+    if(isLoggedIn()){
+      signBtn.classList.add('d-none');
+      profileWrap.classList.remove('d-none');
+      document.querySelectorAll('[data-profile=email]').forEach(el => el.textContent = getEmail());
+    }else{
+      profileWrap.classList.add('d-none');
+      signBtn.classList.remove('d-none');
+    }
+  }
+  // Inject Admin menu item in navbar if admin
+  const nav = document.querySelector('.navbar .navbar-nav');
+  if(nav && isAdmin() && !document.getElementById('adminMenuItem')){
+    const li = document.createElement('li');
+    li.className = 'nav-item';
+    li.id = 'adminMenuItem';
+    li.innerHTML = '<a class="nav-link text-danger fw-bold" href="admin.html">Edit Klasemen</a>';
+    nav.appendChild(li);
+  }
+}
+
+function logout(){
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('authEmail');
+  localStorage.removeItem('authPassword');
+  localStorage.removeItem('isAdmin');
+  renderAuthUI();
+}
+document.addEventListener('DOMContentLoaded', renderAuthUI);
+</script>
+</body>
+</html>
