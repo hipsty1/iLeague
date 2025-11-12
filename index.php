@@ -1,9 +1,13 @@
+<?php
+include 'php/connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Premier League Style - Index</title>
+    <title>Ileague</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -265,21 +269,21 @@
             </li>
           </ul>
           <div class="d-flex align-items-center gap-3">
-<!-- Profile dropdown (shown after login) -->
-<div class="dropdown d-none" data-auth="profile-wrap">
-  <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB4Mj0nMScgeTE9JzAnIHkyPScxJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyNkOWQ5ZDknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyNmMmYyZjInLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48Y2lyY2xlIGN4PSc2NCcgY3k9JzY0JyByPSc2NCcgZmlsbD0ndXJsKCNnKScvPjxjaXJjbGUgY3g9JzY0JyBjeT0nNTAnIHI9JzI2JyBmaWxsPScjYjViNWI1Jy8+PHBhdGggZD0nTTIwLDExNmE0NCw0NCAwIDAgMSA4OCwwJyBmaWxsPScjYjViNWI1Jy8+PC9zdmc+" alt="avatar" class="rounded-circle" width="32" height="32" style="border:1px solid #ced4da;"/>
-  </a>
-  <ul class="dropdown-menu dropdown-menu-end">
-    <li class="px-3 py-2">
-      <div class="small text-muted">Signed in</div>
-      <div class="fw-semibold" data-profile="email">user@example.com</div>
-    </li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="profil.html"><i class="bi bi-person-gear me-2"></i>Profil</a></li>
-    <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
-  </ul>
-</div>
+            <!-- Profile dropdown (shown after login) -->
+            <div class="dropdown d-none" data-auth="profile-wrap">
+              <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB4Mj0nMScgeTE9JzAnIHkyPScxJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyNkOWQ5ZDknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyNmMmYyZjInLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48Y2lyY2xlIGN4PSc2NCcgY3k9JzY0JyByPSc2NCcgZmlsbD0ndXJsKCNnKScvPjxjaXJjbGUgY3g9JzY0JyBjeT0nNTAnIHI9JzI2JyBmaWxsPScjYjViNWI1Jy8+PHBhdGggZD0nTTIwLDExNmE0NCw0NCAwIDAgMSA4OCwwJyBmaWxsPScjYjViNWI1Jy8+PC9zdmc+" alt="avatar" class="rounded-circle" width="32" height="32" style="border:1px solid #ced4da;"/>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li class="px-3 py-2">
+                  <div class="small text-muted">Signed in</div>
+                  <div class="fw-semibold" data-profile="email">user@example.com</div>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="profil.html"><i class="bi bi-person-gear me-2"></i>Profil</a></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+              </ul>
+            </div>
 
             <i class="bi bi-search"></i>
             <a class="btn btn-outline-dark rounded-pill px-3" href="signin.html" data-auth="signin-btn"
@@ -298,7 +302,7 @@
             <div
               class="img-wrap"
               style="
-                background-image: url('https://images.unsplash.com/photo-1543322748-33df6d3db806?q=80&w=1200&auto=format&fit=crop');
+                background-image: url('assets/image/news/topNews.png');
               "
             >
               <div class="hero-overlay">
@@ -307,10 +311,10 @@
                     >Match report</span
                   >
                   <h1 class="display-6 hero-title mb-2">
-                    Hendri Hitam! Dikatain Rasis Malah Melawan Aparat.
+                    Jadwal I-League Terlengkap
                   </h1>
                   <p class="mb-0">
-                    Hidup blonde is the best statement of the year.
+                    Kumpulan seluruh jadwal pertandingan I-League.
                   </p>
                 </div>
               </div>
@@ -324,14 +328,14 @@
               <article class="card news-card shadow-sm">
                 <div class="ratio ratio-16x9">
                   <img
-                    src="https://images.unsplash.com/photo-1536300130190-99bc3b143fd9?q=80&w=1200&auto=format&fit=crop"
+                    src="https://cdn1-production-images-kly.akamaized.net/Qkzamz1cnI8aeFnOydZ0g2ApC2E=/57x0:1070x1350/1280x1706/filters:quality(75):strip_icc()/kly-media-production/medias/5209994/original/011488500_1746457858-Satu_kemenangan_lagi__satu_langkah_lagi__kita_ubah_Bandung_jadi_lautan_biru.Tetap_di_belakang_kami__Bobotoh..jpg"
                     class="w-100 h-100 object-fit-cover"
-                    alt="Liverpool"
+                    alt="Persib"
                   />
                 </div>
                 <div class="card-body">
-                  <a href=""><h6 class="fw-bold mb-1">Berita 1</h6> </a>
-                  <small class="text-muted d-block">Match report</small>
+                  <a href="https://www.bola.com/indonesia/read/6208356/menyadari-suporter-punya-asa-tinggi-untuk-persib-di-level-asia-ini-kata-marc-klok"><h6 class="fw-bold mb-1">Menyadari Suporter Punya Asa...</h6> </a>
+                  <small class="text-muted d-block">Indonesia</small>
                 </div>
               </article>
             </div>
@@ -339,14 +343,14 @@
               <article class="card news-card shadow-sm">
                 <div class="ratio ratio-16x9">
                   <img
-                    src="https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=1200&auto=format&fit=crop"
+                    src="https://cdn0-production-images-kly.akamaized.net/0lF6aqlu-GdKOYBQCuBH8YFbwTQ=/0x0:3000x1688/1280x720/filters:quality(75):strip_icc():watermark(kly-media-production/assets/images/watermarks/bola/watermark-color-landscape-new.png,1205,20,0)/kly-media-production/medias/5296325/original/012442900_1753573688-Launching_Persijap_Jepara-1.jpg"
                     class="w-100 h-100 object-fit-cover"
-                    alt="Injury update"
+                    alt="Persijap"
                   />
                 </div>
                 <div class="card-body">
-                  <a href=""><h6 class="fw-bold mb-1">Berita 2</h6></a>
-                  <small class="text-muted d-block">News</small>
+                  <a href="https://www.bola.com/indonesia/read/6207842/persijap-jepara-panen-rekor-buruk-hingga-tersungkur-di-zona-degradasi-telan-6-kekalahan-beruntun-kolektor-kartu-merah-terbanyak"><h6 class="fw-bold mb-1">Persijap Jepara Panen Rekor...</h6></a>
+                  <small class="text-muted d-block">BRI Super League</small>
                 </div>
               </article>
             </div>
@@ -354,14 +358,14 @@
               <article class="card news-card shadow-sm">
                 <div class="ratio ratio-16x9">
                   <img
-                    src="https://images.unsplash.com/photo-1543329668-3ae6f9d03203?q=80&w=1200&auto=format&fit=crop"
+                    src="https://cdn1-production-images-kly.akamaized.net/bjoNst8gPJWZVDX-fAK3Ee8iP08=/1280x720/smart/filters:quality(75):strip_icc()/kly-media-production/medias/5408100/original/024154800_1762763798-j805kvaj.png"
                     class="w-100 h-100 object-fit-cover"
-                    alt="Arsenal clean sheet"
+                    alt="Coach"
                   />
                 </div>
                 <div class="card-body">
-                  <a href=""><h6 class="fw-bold mb-1">Berita 3</h6></a>
-                  <small class="text-muted d-block">News</small>
+                  <a href="https://www.bola.com/indonesia/read/6208026/patricio-matricardi-dapat-pelajaran-besar-dalam-kemenangan-dramatis-persib-atas-selangor"><h6 class="fw-bold mb-1">Patricio Matricardi Dapat...</h6></a>
+                  <small class="text-muted d-block">BRI Super League</small>
                 </div>
               </article>
             </div>
@@ -369,14 +373,14 @@
               <article class="card news-card shadow-sm">
                 <div class="ratio ratio-16x9">
                   <img
-                    src="https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=1200&auto=format&fit=crop"
+                    src="https://cdn1-production-images-kly.akamaized.net/3EOlr57oBoVk3oiyNgJS3QKFDsE=/0x42:1599x943/1280x720/filters:quality(75):strip_icc()/kly-media-production/medias/5307862/original/009171400_1754487646-WhatsApp_Image_2025-08-06_at_20.27.15-2.jpeg"
                     class="w-100 h-100 object-fit-cover"
                     alt="Chelsea vs Spurs"
                   />
                 </div>
                 <div class="card-body">
-                  <a href=""><h6 class="fw-bold mb-1">Berita 4</h6></a>
-                  <small class="text-muted d-block">Match report</small>
+                  <a href="https://www.bola.com/indonesia/read/6207999/4-fakta-menarik-pekan-ke-12-bri-super-league-20252026-hujan-kartu-merah-lagi-borneo-fc-menang-terus"><h6 class="fw-bold mb-1">4 Fakta Menarik...</h6></a>
+                  <small class="text-muted d-block">BRI Super League</small>
                 </div>
               </article>
             </div>
@@ -389,121 +393,107 @@
             <div class="card-body">
               <h5 class="fw-bold mb-3">Top stories</h5>
               <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item story-item">
+                <a href="https://www.jawapos.com/sepak-bola-indonesia/016202141/eduardo-perez-genjot-taktik-persebaya-surabaya-filosofi-baru-siap-guncang-liga-1-indonesia-20252026" class="list-group-item story-item">
                   <div class="d-flex gap-3 align-items-center">
                     <img
-                      src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=400&auto=format&fit=crop"
-                      alt="Bournemouth"
+                      src="https://static.promediateknologi.id/crop/363x118:1197x614/0x0/webp/photo/p2/01/2025/06/27/perez-3062544118.jpg"
+                      alt="Taktik"
                       class="flex-shrink-0"
                     />
                     <div class="flex-grow-1">
                       <div class="fw-semibold">
-                        Are Bournemouth genuine title contenders if they beat
-                        Man City?
+                        Eduardo Perez Genjot Taktik Persebaya
                       </div>
                       <small class="text-muted">Tactics and Analysis</small>
                     </div>
                   </div>
                 </a>
-                <a href="#" class="list-group-item story-item">
+                <a href="https://bola.okezone.com/read/2025/11/11/49/3182978/kata-asisten-pelatih-persib-bandung-igor-tolic-soal-bojan-hodak-jadi-juru-taktik-timnas-indonesia" class="list-group-item story-item">
                   <div class="d-flex gap-3 align-items-center">
                     <img
-                      src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=400&auto=format&fit=crop"
-                      alt="Guardiola"
+                      src="https://img.okezone.com/content/2025/11/11/49/3182978/asisten_pelatih_persib_bandung_menanggapi_rumor_soal_bojan_hodak_jadi_juru_taktik_timnas_indonesia-rbRo_large.jpg"
+                      alt="Taktik"
                       class="flex-shrink-0"
                     />
                     <div class="flex-grow-1">
                       <div class="fw-semibold">
-                        How can Guardiola solve Man City's midfield conundrum?
+                        Kata Asisten Pelatih Persib Bandung
                       </div>
                       <small class="text-muted">Tactics and Analysis</small>
                     </div>
                   </div>
                 </a>
-                <a href="#" class="list-group-item story-item">
+                <a href="https://wow.tribunnews.com/superball/373549/rumor-transfer-pelatih-liga-1-persebaya-persis-dewa-united-berebut-timnas-indonesia-goda-persib#goog_rewarded" class="list-group-item story-item">
                   <div class="d-flex gap-3 align-items-center">
                     <img
-                      src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=400&auto=format&fit=crop"
-                      alt="Kroupi"
+                      src="https://asset.tribunnews.com/omSVUuR_DeDeNF0aizAMPVU7U44=/1200x800/filters:upscale():quality(30):format(webp):focal(0.5x0.5:0.5x0.5)/wow/foto/bank/originals/Surabaya-fuad-sule.jpg"
+                      alt="Transfer"
                       class="flex-shrink-0"
                     />
                     <div class="flex-grow-1">
                       <div class="fw-semibold">
-                        Junior Kroupi: the red-hot teenager likened to Mbappe
-                        and Aguero
+                        Rumor Transfer Pelatih Liga 1
                       </div>
-                      <small class="text-muted">Features</small>
+                      <small class="text-muted">Transfer</small>
                     </div>
                   </div>
                 </a>
-                <a href="#" class="list-group-item story-item">
+                <a href="https://www.tribunnews.com/superskor/2025/06/18/aroma-juru-taktik-belanda-di-liga-1-kian-kental-pelatih-psim-bakal-jadi-saingan-baru-bojan-hodak" class="list-group-item story-item">
                   <div class="d-flex gap-3 align-items-center">
                     <img
-                      src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=400&auto=format&fit=crop"
-                      alt="Caicedo"
+                      src="https://asset-2.tribunnews.com/tribunnews/foto/bank/images/PSIM-Yogyakarta-Jean-Paul-Van-Gastel.jpg"
+                      alt="Taktik
                       class="flex-shrink-0"
                     />
                     <div class="flex-grow-1">
                       <div class="fw-semibold">
-                        Best in the world? Caicedo's masterclass against Spurs
+                        Aroma Juru Taktik Belanda di Liga 1 Kian Kental
                       </div>
-                      <small class="text-muted">Features</small>
+                      <small class="text-muted">Taktik</small>
                     </div>
                   </div>
                 </a>
               </div>
             </div>
           </div>
-
           <!-- SCOREBOARD -->
-          <div class="board shadow-sm mb-4">
-            <div class="head">
-              <div>
-                <div class="fw-bold">Premier League</div>
-                <small class="text-muted">Yesterday</small>
-              </div>
-              <span class="badge-pill">View all matches</span>
-            </div>
-            <div class="fixture">
-              <div class="team">
-                <span class="crest"></span><span>Brighton</span>
-              </div>
-              <div class="score">3 - 0</div>
-              <div class="team justify-content-end">
-                <span>Leeds</span><span class="crest"></span>
-              </div>
-              <div class="status">FT</div>
-            </div>
-            <div class="fixture">
-              <div class="team">
-                <span class="crest"></span><span>Burnley</span>
-              </div>
-              <div class="score">0 - 2</div>
-              <div class="team justify-content-end">
-                <span>Arsenal</span><span class="crest"></span>
-              </div>
-              <div class="status">FT</div>
-            </div>
-            <div class="fixture">
-              <div class="team">
-                <span class="crest"></span><span>Crystal Palace</span>
-              </div>
-              <div class="score">2 - 0</div>
-              <div class="team justify-content-end">
-                <span>Brentford</span><span class="crest"></span>
-              </div>
-              <div class="status">FT</div>
-            </div>
-            <div class="fixture">
-              <div class="team">
-                <span class="crest"></span><span>Fulham</span>
-              </div>
-              <div class="score">3 - 0</div>
-              <div class="team justify-content-end">
-                <span>Wolves</span><span class="crest"></span>
-              </div>
-              <div class="status">FT</div>
-            </div>
+          <?php
+            $sql = "SELECT * FROM pertandingan ORDER BY id_pertandingan DESC LIMIT 4";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                echo '<div class="list-group">';
+                while ($row = $result->fetch_assoc()) {
+                    echo '
+                    <div class="list-group-item border-0 mb-2 shadow-sm rounded-3 p-3 bg-light">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="crest bg-secondary rounded-circle d-inline-block" style="width:30px; height:30px;"></span>
+                                <span class="fw-semibold">' . htmlspecialchars($row["home_team"]) . '</span>
+                            </div>
+
+                            <div class="text-center flex-grow-1">
+                                <span class="fs-5 fw-bold">' . $row["home_score"] . ' - ' . $row["away_score"] . '</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2 justify-content-end">
+                                <span class="fw-semibold">' . htmlspecialchars($row["away_team"]) . '</span>
+                                <span class="crest bg-secondary rounded-circle d-inline-block" style="width:30px; height:30px;"></span>
+                            </div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <span class="badge bg-primary px-3 py-1">' . htmlspecialchars($row["status"]) . '</span>
+                        </div>
+                    </div>
+                    ';
+                }
+                echo '</div>';
+            } else {
+                echo "<p class='text-muted text-center'>Tidak ada data pertandingan.</p>";
+            }
+
+            $conn->close();
+            ?>
           </div>
         </aside>
       </div>
@@ -526,14 +516,6 @@
           <div class="text-center">
             <img
               class="sponsor-logo"
-              src="https://logo.clearbit.com/adobe.com"
-              alt="Adobe"
-            />
-            <div class="sponsor-role">Official Creativity Partner</div>
-          </div>
-          <div class="text-center">
-            <img
-              class="sponsor-logo"
               src="https://logo.clearbit.com/barclays.com"
               alt="Barclays"
             />
@@ -546,14 +528,6 @@
               alt="Coca‑Cola"
             />
             <div class="sponsor-role">Official Soft Drink</div>
-          </div>
-          <div class="text-center">
-            <img
-              class="sponsor-logo"
-              src="https://logo.clearbit.com/guinness.com"
-              alt="Guinness"
-            />
-            <div class="sponsor-role">Official Beer</div>
           </div>
           <div class="text-center">
             <img
@@ -600,39 +574,10 @@
             <ul class="list-unstyled small mb-0">
               <li class="mb-2"><a href="#">Beranda</a></li>
               <li class="mb-2">
-                <a href="#">Jadwal Dan Hasil Pertandingan</a>
+                <a href="pages/match.html">Jadwal Dan Hasil Pertandingan</a>
               </li>
-              <li class="mb-2"><a href="#klasemen">Klasemen</a></li>
-              <li class="mb-2"><a href="#tim">Klub</a></li>
-            </ul>
-          </div>
-          <div class="col-6 col-lg-3">
-            <div class="footer-title">MEDIA</div>
-            <ul class="list-unstyled small mb-0">
-              <li class="mb-2"><a href="#">Berita</a></li>
-              <li class="mb-2"><a href="#">Rilis</a></li>
-              <li class="mb-2"><a href="#">Foto</a></li>
-              <li class="mb-2"><a href="#">Video</a></li>
-            </ul>
-          </div>
-          <div class="col-6 col-lg-3">
-            <div class="footer-title">STATS</div>
-            <ul class="list-unstyled small mb-0">
-              <li class="mb-2"><a href="#">Booklet Mingguan</a></li>
-              <li class="mb-2"><a href="#">Aksi Top Klub</a></li>
-              <li class="mb-2"><a href="#">Aksi Top Pemain</a></li>
-              <li class="mb-2">
-                <a href="#"
-                  >Statistik Klub
-                  <span class="text-danger">Segera Hadir</span></a
-                >
-              </li>
-              <li class="mb-2">
-                <a href="#"
-                  >Statistik Pemain
-                  <span class="text-danger">Segera Hadir</span></a
-                >
-              </li>
+              <li class="mb-2"><a href="pages/klasemen.html">Klasemen</a></li>
+              <li class="mb-2"><a href="pages/tim.html">Klub</a></li>
             </ul>
           </div>
           <div class="col-12 col-lg-3">
