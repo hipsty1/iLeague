@@ -1,9 +1,13 @@
+<?php 
+    include "../php/connect.php";
+?>
+
 <!doctype html>
 <html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Klasemen — Premier League Style</title>
+  <title>Klasemen ILeague</title>
 
   <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -84,92 +88,67 @@
 <body>
   <!-- NAVBAR (copy gaya dari index) -->
   <nav class="navbar navbar-expand-lg pl-navbar border-bottom sticky-top">
-    <div class="container">
-      <a class="navbar-brand brand-badge" href="index.html">
-        <span class="lion"></span>
-        <span>Premier&nbsp;League</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link active" href="klasemen.html">Klasemen</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html#tim">Tim</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html#reward">Reward</a></li>
-        </ul>
-        <div class="d-flex align-items-center gap-3">
-<!-- Profile dropdown (shown after login) -->
-<div class="dropdown d-none" data-auth="profile-wrap">
-  <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB4Mj0nMScgeTE9JzAnIHkyPScxJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyNkOWQ5ZDknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyNmMmYyZjInLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48Y2lyY2xlIGN4PSc2NCcgY3k9JzY0JyByPSc2NCcgZmlsbD0ndXJsKCNnKScvPjxjaXJjbGUgY3g9JzY0JyBjeT0nNTAnIHI9JzI2JyBmaWxsPScjYjViNWI1Jy8+PHBhdGggZD0nTTIwLDExNmE0NCw0NCAwIDAgMSA4OCwwJyBmaWxsPScjYjViNWI1Jy8+PC9zdmc+" alt="avatar" class="rounded-circle" width="32" height="32" style="border:1px solid #ced4da;"/>
-  </a>
-  <ul class="dropdown-menu dropdown-menu-end">
-    <li class="px-3 py-2">
-      <div class="small text-muted">Signed in</div>
-      <div class="fw-semibold" data-profile="email">user@example.com</div>
-    </li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="profil.html"><i class="bi bi-person-gear me-2"></i>Profil</a></li>
-    <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
-  </ul>
-</div>
+      <div class="container">
+        <a class="navbar-brand brand-badge d-flex align-items-center" href="../index.php">
+          <img src="../assets/image/logo.png" alt="ILeague Logo" width="35" height="35" class="me-2">
+          <span>ILeague</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMain"
+          aria-controls="navMain"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="klasemen2.html">Klasemen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/tim.html">Tim</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/reward.html">Reward</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-3">
+            <!-- Profile dropdown (shown after login) -->
+            <div class="dropdown d-none" data-auth="profile-wrap">
+              <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB4Mj0nMScgeTE9JzAnIHkyPScxJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyNkOWQ5ZDknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyNmMmYyZjInLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48Y2lyY2xlIGN4PSc2NCcgY3k9JzY0JyByPSc2NCcgZmlsbD0ndXJsKCNnKScvPjxjaXJjbGUgY3g9JzY0JyBjeT0nNTAnIHI9JzI2JyBmaWxsPScjYjViNWI1Jy8+PHBhdGggZD0nTTIwLDExNmE0NCw0NCAwIDAgMSA4OCwwJyBmaWxsPScjYjViNWI1Jy8+PC9zdmc+" alt="avatar" class="rounded-circle" width="32" height="32" style="border:1px solid #ced4da;"/>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li class="px-3 py-2">
+                  <div class="small text-muted">Signed in</div>
+                  <div class="fw-semibold" data-profile="email">user@example.com</div>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="pages/profil.html"><i class="bi bi-person-gear me-2"></i>Profil</a></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+              </ul>
+            </div>
 
-          <i class="bi bi-search"></i>
-          <a class="btn btn-outline-dark rounded-pill px-3" href="signin.html" data-auth="signin-btn">Sign in</a>
+            <i class="bi bi-search"></i>
+            <a class="btn btn-outline-dark rounded-pill px-3" href="pages/signin.html" data-auth="signin-btn"
+              >Sign in</a
+            >
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
   <main class="container my-4">
 
     <!-- Title (tanpa background) -->
     <header class="mb-3">
-      <h1 class="page-title">Table</h1>
+      <h1 class="page-title">Klasemen ILeague</h1>
     </header>
-
-    <!-- FILTERS: Competition (dropdown) + Season (dropdown) -->
-    <section class="mb-3">
-      <div class="filters">
-        <button type="button" class="chip-icon" disabled aria-disabled="true">
-          <i class="bi bi-sliders2"></i>
-        </button>
-
-        <!-- Competition dropdown -->
-        <div class="dropdown">
-          <button class="chip-btn dropdown-toggle" id="competitionBtn" data-bs-toggle="dropdown" aria-expanded="false">
-            <span id="competitionLabel">Premier League</span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item competition-opt" href="#" data-comp="Premier League">Premier League</a></li>
-            <li><a class="dropdown-item competition-opt" href="#" data-comp="FA Cup">FA Cup</a></li>
-            <li><a class="dropdown-item competition-opt" href="#" data-comp="EFL Cup">EFL Cup</a></li>
-            <li><a class="dropdown-item competition-opt" href="#" data-comp="UEFA Champions League">UEFA Champions League</a></li>
-            <li><a class="dropdown-item competition-opt" href="#" data-comp="UEFA Europa League">UEFA Europa League</a></li>
-            <li><a class="dropdown-item competition-opt" href="#" data-comp="UEFA Conference League">UEFA Conference League</a></li>
-            <li><a class="dropdown-item competition-opt" href="#" data-comp="Summer Series">Summer Series</a></li>
-          </ul>
-        </div>
-
-        <!-- Season dropdown -->
-        <div class="dropdown">
-          <button class="chip-btn dropdown-toggle" id="seasonBtn" data-bs-toggle="dropdown" aria-expanded="false">
-            <span id="seasonLabel">2025/26</span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item season-opt" href="#" data-season="2025/26">2025/26</a></li>
-            <li><a class="dropdown-item season-opt" href="#" data-season="2024/25">2024/25</a></li>
-            <li><a class="dropdown-item season-opt" href="#" data-season="2023/24">2023/24</a></li>
-          </ul>
-        </div>
-
-        <button class="chip-reset" id="resetBtn">
-          Reset <i class="bi bi-arrow-counterclockwise"></i>
-        </button>
-      </div>
-    </section>
-
+    
     <!-- STANDINGS TABLE -->
     <section class="table-wrap">
       <div class="table-responsive">
@@ -178,56 +157,109 @@
             <tr>
               <th class="pos">Pos</th>
               <th class="text-start">Team</th>
-              <th>PL</th><th>W</th><th>D</th><th>L</th>
+              <th>PLAY</th><th>WIN</th><th>DRAW</th><th>LOSE</th>
               <th>GF</th><th>GA</th><th>GD</th>
-              <th>Pts</th>
-              <th class="text-nowrap">Form</th>
+              <th>Points</th>
             </tr>
           </thead>
           <tbody id="tableBody">
-            <tr>
-              <td class="pos">1</td>
-              <td class="text-start"><div class="team-cell"><span class="crest"></span><span>Arsenal</span></div></td>
-              <td>10</td><td>8</td><td>1</td><td>1</td>
-              <td>18</td><td>3</td><td>15</td><td>25</td>
-              <td><span class="form-pill form-W">W</span><span class="form-pill form-W">W</span><span class="form-pill form-W">W</span><span class="form-pill form-W">W</span><span class="form-pill form-W">W</span></td>
-            </tr>
-            <tr>
-              <td class="pos">2</td>
-              <td class="text-start"><div class="team-cell"><span class="crest"></span><span>Bournemouth</span></div></td>
-              <td>9</td><td>5</td><td>3</td><td>1</td>
-              <td>16</td><td>11</td><td>5</td><td>18</td>
-              <td><span class="form-pill form-D">D</span><span class="form-pill form-D">D</span><span class="form-pill form-W">W</span><span class="form-pill form-D">D</span><span class="form-pill form-W">W</span></td>
-            </tr>
-            <tr>
-              <td class="pos">3</td>
-              <td class="text-start"><div class="team-cell"><span class="crest"></span><span>Liverpool</span></div></td>
-              <td>10</td><td>6</td><td>0</td><td>4</td>
-              <td>18</td><td>14</td><td>4</td><td>18</td>
-              <td><span class="form-pill form-L">L</span><span class="form-pill form-L">L</span><span class="form-pill form-L">L</span><span class="form-pill form-W">W</span><span class="form-pill form-W">W</span></td>
-            </tr>
-            <tr>
-              <td class="pos">4</td>
-              <td class="text-start"><div class="team-cell"><span class="crest"></span><span>Tottenham Hotspur</span></div></td>
-              <td>10</td><td>5</td><td>2</td><td>3</td>
-              <td>17</td><td>8</td><td>9</td><td>17</td>
-              <td><span class="form-pill form-D">D</span><span class="form-pill form-W">W</span><span class="form-pill form-L">L</span><span class="form-pill form-L">L</span><span class="form-pill form-L">L</span></td>
-            </tr>
-            <tr>
-              <td class="pos">5</td>
-              <td class="text-start"><div class="team-cell"><span class="crest"></span><span>Chelsea</span></div></td>
-              <td>10</td><td>5</td><td>2</td><td>3</td>
-              <td>18</td><td>11</td><td>7</td><td>17</td>
-              <td><span class="form-pill form-L">L</span><span class="form-pill form-W">W</span><span class="form-pill form-W">W</span><span class="form-pill form-W">W</span><span class="form-pill form-L">L</span></td>
-            </tr>
-            <tr>
-              <td class="pos">6</td>
-              <td class="text-start"><div class="team-cell"><span class="crest"></span><span>Sunderland</span></div></td>
-              <td>9</td><td>5</td><td>2</td><td>2</td>
-              <td>11</td><td>7</td><td>4</td><td>17</td>
-              <td><span class="form-pill form-D">D</span><span class="form-pill form-W">W</span><span class="form-pill form-L">L</span><span class="form-pill form-W">W</span><span class="form-pill form-W">W</span></td>
-            </tr>
-          </tbody>
+<?php
+
+// Ambil data tim
+$sql = "SELECT id_tim, nama_tim, `Logo Tim` FROM tim";
+$result = $conn->query($sql);
+$klasemen = [];
+
+while ($row = $result->fetch_assoc()) {
+  $id = $row['id_tim'];
+  $klasemen[$id] = [
+    'id_tim' => $id,
+    'nama_tim' => $row['nama_tim'],
+    'logo' => $row['Logo Tim'],
+    'main' => 0, 'menang' => 0, 'seri' => 0, 'kalah' => 0,
+    'gol_masuk' => 0, 'gol_kemasukan' => 0, 'poin' => 0
+  ];
+}
+
+// Ambil data pertandingan
+$match = $conn->query("SELECT * FROM pertandingan");
+while ($m = $match->fetch_assoc()) {
+  $home = $m['tim_home'];
+  $away = $m['tim_away'];
+  $skorH = $m['skor_tim_home'];
+  $skorA = $m['skor_tim_away'];
+
+  // Main & Gol
+  $klasemen[$home]['main']++;
+  $klasemen[$away]['main']++;
+  $klasemen[$home]['gol_masuk'] += $skorH;
+  $klasemen[$home]['gol_kemasukan'] += $skorA;
+  $klasemen[$away]['gol_masuk'] += $skorA;
+  $klasemen[$away]['gol_kemasukan'] += $skorH;
+
+  // Menang / Seri / Kalah / Poin
+  if ($skorH > $skorA) {
+    $klasemen[$home]['menang']++;
+    $klasemen[$away]['kalah']++;
+    $klasemen[$home]['poin'] += 3;
+  } elseif ($skorH < $skorA) {
+    $klasemen[$away]['menang']++;
+    $klasemen[$home]['kalah']++;
+    $klasemen[$away]['poin'] += 3;
+  } else {
+    $klasemen[$home]['seri']++;
+    $klasemen[$away]['seri']++;
+    $klasemen[$home]['poin']++;
+    $klasemen[$away]['poin']++;
+  }
+}
+
+// Urutkan
+usort($klasemen, function($a, $b){
+  if ($a['poin'] != $b['poin']) return $b['poin'] - $a['poin'];
+  $sgA = $a['gol_masuk'] - $a['gol_kemasukan'];
+  $sgB = $b['gol_masuk'] - $b['gol_kemasukan'];
+  if ($sgA != $sgB) return $sgB - $sgA;
+  return $b['gol_masuk'] - $a['gol_masuk'];
+});
+
+// Simpan ke tabel klasemen (optional)
+$conn->query("TRUNCATE TABLE klasemen");
+$pos = 1;
+foreach ($klasemen as $t) {
+  $sg = $t['gol_masuk'] - $t['gol_kemasukan'];
+  $stmt = $conn->prepare("
+    INSERT INTO klasemen (id_tim, main, menang, seri, kalah, gol_masuk, gol_kemasukan, selisih_gol, poin, peringkat)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  ");
+  $stmt->bind_param("iiiiiiiiii",
+    $t['id_tim'], $t['main'], $t['menang'], $t['seri'], $t['kalah'],
+    $t['gol_masuk'], $t['gol_kemasukan'], $sg, $t['poin'], $pos
+  );
+  $stmt->execute();
+
+  echo "<tr>
+    <td class='pos'>{$pos}</td>
+    <td class='text-start'>
+      <div class='team-cell'>
+        <img src='{$t['logo']}' alt='logo' class='crest'>
+        <span>{$t['nama_tim']}</span>
+      </div>
+    </td>
+    <td>{$t['main']}</td>
+    <td>{$t['menang']}</td>
+    <td>{$t['seri']}</td>
+    <td>{$t['kalah']}</td>
+    <td>{$t['gol_masuk']}</td>
+    <td>{$t['gol_kemasukan']}</td>
+    <td>{$sg}</td>
+    <td>{$t['poin']}</td>
+  </tr>";
+  $pos++;
+}
+?>
+</tbody>
+
         </table>
       </div>
     </section>

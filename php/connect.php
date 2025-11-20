@@ -3,7 +3,7 @@
 $host     = "localhost";
 $username = "root";    
 $password = "";
-$database = "db_iLeague";
+$database = "super_league";
 
 // Buat koneksi
 $conn = mysqli_connect($host, $username, $password, $database);

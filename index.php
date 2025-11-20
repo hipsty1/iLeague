@@ -242,7 +242,7 @@ include 'php/connect.php';
     <nav class="navbar navbar-expand-lg pl-navbar border-bottom sticky-top">
       <div class="container">
         <a class="navbar-brand brand-badge d-flex align-items-center" href="#">
-          <img src="assets/image/logo.png" alt="Premier League Logo" width="35" height="35" class="me-2">
+          <img src="assets/image/logo.png" alt="ILeague Logo" width="35" height="35" class="me-2">
           <span>ILeague</span>
         </a>
         <button
@@ -259,13 +259,13 @@ include 'php/connect.php';
         <div class="collapse navbar-collapse" id="navMain">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" href="klasemen.html">Klasemen</a>
+              <a class="nav-link active" href="pages/klasemen.php">Klasemen</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tim.html">Tim</a>
+              <a class="nav-link" href="pages/tim.html">Tim</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="reward.html">Reward</a>
+              <a class="nav-link" href="pages/reward.html">Reward</a>
             </li>
           </ul>
           <div class="d-flex align-items-center gap-3">
@@ -280,13 +280,13 @@ include 'php/connect.php';
                   <div class="fw-semibold" data-profile="email">user@example.com</div>
                 </li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="profil.html"><i class="bi bi-person-gear me-2"></i>Profil</a></li>
+                <li><a class="dropdown-item" href="pages/profil.html"><i class="bi bi-person-gear me-2"></i>Profil</a></li>
                 <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
               </ul>
             </div>
 
             <i class="bi bi-search"></i>
-            <a class="btn btn-outline-dark rounded-pill px-3" href="signin.html" data-auth="signin-btn"
+            <a class="btn btn-outline-dark rounded-pill px-3" href="pages/signin.html" data-auth="signin-btn"
               >Sign in</a
             >
           </div>
