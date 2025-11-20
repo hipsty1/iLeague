@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Klasemen ILeague</title>
+  <title>Tim ILeague</title>
 
   <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -54,19 +54,95 @@
     .chip-reset{border:1px solid var(--border);background:#fff;border-radius:12px;padding:.5rem .9rem;color:#6b5b71;display:inline-flex;align-items:center;gap:.35rem;}
     .chip-reset:hover,.chip-btn:hover,.chip-icon:hover{filter:brightness(.98);}
 
-    /* Table */
-    .table-wrap{background:#fff;border-radius:18px;box-shadow:0 12px 24px rgba(0,0,0,.06); overflow:hidden;}
-    table.standings{margin-bottom:0;}
-    .standings thead th{white-space:nowrap;color:#7d7384;font-weight:700;border-bottom:1px solid #efe9f3;}
-    .standings tbody td{vertical-align:middle;border-top:1px solid #f2ecf6;}
-    .pos{width:56px;color:#7d7384;font-weight:700;}
-    .team-cell{display:flex;align-items:center;gap:.6rem;min-width:200px;}
-    .crest {width: 36px; height: 36px; border-radius: 50%; object-fit: contain; background: #fff;}
-    .form-pill{width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;margin-right:.25rem;}
-    .form-W{background:#3bc56a;color:#fff;}
-    .form-D{background:#e6e2ec;color:#5f5566;}
-    .form-L{background:#ff5a5a;color:#fff;}
+    /* Team Cards */
+    .team-card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+      background: #fff;
+      transition: all .3s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+    .team-photo {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      position: relative;
+    }
+    .logo-overlay {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 50%;
+      bottom: -35px;
+      transform: translateX(-50%);
+      border: 3px solid #fff;
+      overflow: hidden;
+    }
+    .logo-overlay img {
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+    }
+    .team-info {
+      padding-top: 50px;
+    }
+    .team-info h5 {
+      font-weight: 700;
+      color: #000;
+      font-size: 1rem;
+    }
+    .team-info p {
+      color: #666;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+    .btn-profile {
+      background: #002b7f;
+      color: #fff;
+      border: none;
+      border-radius: 0;
+      padding: 10px;
+      font-weight: 600;
+    }
+    .btn-profile:hover {
+      background: #0039b3;
+    }
 
+    /* Supaya semua card sejajar tingginya */
+    .row.g-4 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    }
+
+    /* Setiap card punya tinggi penuh */
+    .team-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    }
+
+    /* Isi card ikut menyesuaikan tinggi */
+    .team-card .card-body {
+    flex-grow: 1;
+    }
+
+    /* Tombol selalu di bagian bawah */
+    .btn-profile {
+    margin-top: auto;
+    }
+
+   
     /* Sponsors */
     .sponsor-strip{
       background:#fff; border-radius:18px; box-shadow:0 12px 22px rgba(0,0,0,.06);
@@ -107,10 +183,10 @@
         <div class="collapse navbar-collapse" id="navMain">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" href="klasemen.php">Klasemen</a>
+              <a class="nav-link" href="klasemen.php">Klasemen</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tim.php">Tim</a>
+              <a class="nav-link active" href="tim.php">Tim</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="reward.html">Reward</a>
@@ -143,126 +219,46 @@
     </nav>
 
   <main class="container my-4">
+    <h1 class="fw-bold text-center mb-5">Daftar Tim ILeague</h1>
 
-    <!-- Title (tanpa background) -->
-    <header class="mb-3">
-      <h1 class="page-title">Klasemen ILeague</h1>
-    </header>
-    
-    <!-- STANDINGS TABLE -->
-    <section class="table-wrap">
-      <div class="table-responsive">
-        <table class="table table-hover align-middle standings">
-          <thead class="bg-white">
-            <tr>
-              <th class="pos">Pos</th>
-              <th class="text-start">Team</th>
-              <th>PLAY</th><th>WIN</th><th>DRAW</th><th>LOSE</th>
-              <th>GF</th><th>GA</th><th>GD</th>
-              <th>Points</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-<?php
+    <div class="row g-4 justify-content-center">
+        <?php
+        $sql = "SELECT * FROM tim";
+        $result = $conn->query($sql);
 
-// Ambil data tim
-$sql = "SELECT id_tim, nama_tim, `Logo Tim` FROM tim";
-$result = $conn->query($sql);
-$klasemen = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+            // Gunakan URL langsung dari kolom foto_tim, atau default jika kosong
+            $foto_tim = !empty($row['foto_tim'])
+                ? $row['foto_tim']
+                : 'https://images.unsplash.com/photo-1601987077927-7b61b90e5c34?auto=format&fit=crop&w=1200&q=80';
 
-while ($row = $result->fetch_assoc()) {
-  $id = $row['id_tim'];
-  $klasemen[$id] = [
-    'id_tim' => $id,
-    'nama_tim' => $row['nama_tim'],
-    'logo' => $row['Logo Tim'],
-    'main' => 0, 'menang' => 0, 'seri' => 0, 'kalah' => 0,
-    'gol_masuk' => 0, 'gol_kemasukan' => 0, 'poin' => 0
-  ];
-}
+            echo '
+            <div class="col-12 col-sm-6 col-lg-3 d-flex">
+                <div class="card team-card w-100">
+                <div class="position-relative">
+                    <img src="'.$foto_tim.'" class="team-photo" alt="'.$row['nama_tim'].'">
+                    <div class="logo-overlay">
+                    <img src="'.$row['Logo Tim'].'" alt="logo">
+                    </div>
+                </div>
+                <div class="card-body text-center team-info">
+                    <h5>'.strtoupper($row['nama_tim']).'</h5>
+                    <p><i class="bi bi-geo-alt-fill me-1"></i>'.$row['stadion'].'</p>
+                    <p><i class="bi bi-person-fill me-1"></i>'.$row['pelatih'].'</p>
+                </div>
+                <a href="profil_tim.php?id='.$row['id_tim'].'" class="btn btn-profile w-100 mt-auto">Profil Klub</a>
+                </div>
+            </div>';
+            }
+        } else {
+            echo '<p class="text-center text-muted">Belum ada data tim.</p>';
+        }
+        ?>
+    </div>
 
-// Ambil data pertandingan
-$match = $conn->query("SELECT * FROM pertandingan");
-while ($m = $match->fetch_assoc()) {
-  $home = $m['tim_home'];
-  $away = $m['tim_away'];
-  $skorH = $m['skor_tim_home'];
-  $skorA = $m['skor_tim_away'];
 
-  // Main & Gol
-  $klasemen[$home]['main']++;
-  $klasemen[$away]['main']++;
-  $klasemen[$home]['gol_masuk'] += $skorH;
-  $klasemen[$home]['gol_kemasukan'] += $skorA;
-  $klasemen[$away]['gol_masuk'] += $skorA;
-  $klasemen[$away]['gol_kemasukan'] += $skorH;
 
-  // Menang / Seri / Kalah / Poin
-  if ($skorH > $skorA) {
-    $klasemen[$home]['menang']++;
-    $klasemen[$away]['kalah']++;
-    $klasemen[$home]['poin'] += 3;
-  } elseif ($skorH < $skorA) {
-    $klasemen[$away]['menang']++;
-    $klasemen[$home]['kalah']++;
-    $klasemen[$away]['poin'] += 3;
-  } else {
-    $klasemen[$home]['seri']++;
-    $klasemen[$away]['seri']++;
-    $klasemen[$home]['poin']++;
-    $klasemen[$away]['poin']++;
-  }
-}
-
-// Urutkan
-usort($klasemen, function($a, $b){
-  if ($a['poin'] != $b['poin']) return $b['poin'] - $a['poin'];
-  $sgA = $a['gol_masuk'] - $a['gol_kemasukan'];
-  $sgB = $b['gol_masuk'] - $b['gol_kemasukan'];
-  if ($sgA != $sgB) return $sgB - $sgA;
-  return $b['gol_masuk'] - $a['gol_masuk'];
-});
-
-// Simpan ke tabel klasemen (optional)
-$conn->query("TRUNCATE TABLE klasemen");
-$pos = 1;
-foreach ($klasemen as $t) {
-  $sg = $t['gol_masuk'] - $t['gol_kemasukan'];
-  $stmt = $conn->prepare("
-    INSERT INTO klasemen (id_tim, main, menang, seri, kalah, gol_masuk, gol_kemasukan, selisih_gol, poin, peringkat)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  ");
-  $stmt->bind_param("iiiiiiiiii",
-    $t['id_tim'], $t['main'], $t['menang'], $t['seri'], $t['kalah'],
-    $t['gol_masuk'], $t['gol_kemasukan'], $sg, $t['poin'], $pos
-  );
-  $stmt->execute();
-
-  echo "<tr>
-    <td class='pos'>{$pos}</td>
-    <td class='text-start'>
-      <div class='team-cell'>
-        <img src='{$t['logo']}' alt='logo' class='crest'>
-        <span>{$t['nama_tim']}</span>
-      </div>
-    </td>
-    <td>{$t['main']}</td>
-    <td>{$t['menang']}</td>
-    <td>{$t['seri']}</td>
-    <td>{$t['kalah']}</td>
-    <td>{$t['gol_masuk']}</td>
-    <td>{$t['gol_kemasukan']}</td>
-    <td>{$sg}</td>
-    <td>{$t['poin']}</td>
-  </tr>";
-  $pos++;
-}
-?>
-</tbody>
-
-        </table>
-      </div>
-    </section>
 
     <!-- SPONSOR STRIP -->
     <section id="sponsors" class="sponsor-strip">

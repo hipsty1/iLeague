@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2025 at 11:43 AM
+-- Generation Time: Nov 20, 2025 at 04:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,6 +40,30 @@ CREATE TABLE `klasemen` (
   `poin` int(10) NOT NULL,
   `peringkat` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `klasemen`
+--
+
+INSERT INTO `klasemen` (`id_klasemen`, `id_tim`, `main`, `menang`, `seri`, `kalah`, `gol_masuk`, `gol_kemasukan`, `selisih_gol`, `poin`, `peringkat`) VALUES
+(1, 10, 33, 29, 2, 2, 82, 32, 50, 89, 1),
+(2, 16, 34, 17, 8, 9, 55, 46, 9, 59, 2),
+(3, 4, 32, 18, 4, 10, 60, 45, 15, 58, 3),
+(4, 1, 34, 16, 9, 9, 58, 48, 10, 57, 4),
+(5, 8, 32, 16, 7, 9, 46, 33, 13, 55, 5),
+(6, 5, 33, 15, 6, 12, 54, 50, 4, 51, 6),
+(7, 14, 32, 13, 9, 10, 57, 50, 7, 48, 7),
+(8, 7, 31, 12, 9, 10, 47, 44, 3, 45, 8),
+(9, 2, 32, 12, 9, 11, 54, 57, -3, 45, 9),
+(10, 3, 32, 12, 7, 13, 41, 39, 2, 43, 10),
+(11, 9, 32, 12, 6, 14, 43, 46, -3, 42, 11),
+(12, 12, 32, 10, 8, 14, 47, 54, -7, 38, 12),
+(13, 6, 33, 8, 10, 15, 39, 51, -12, 34, 13),
+(14, 15, 32, 8, 9, 15, 38, 53, -15, 33, 14),
+(15, 11, 33, 7, 9, 17, 31, 50, -19, 30, 15),
+(16, 17, 31, 5, 14, 12, 34, 48, -14, 29, 16),
+(17, 18, 33, 7, 6, 20, 40, 58, -18, 27, 17),
+(18, 13, 33, 4, 10, 19, 39, 61, -22, 22, 18);
 
 -- --------------------------------------------------------
 
@@ -366,32 +390,33 @@ CREATE TABLE `tim` (
   `kotaAsal` varchar(30) DEFAULT NULL,
   `pelatih` varchar(30) DEFAULT NULL,
   `stadion` varchar(30) DEFAULT NULL,
-  `Logo Tim` text DEFAULT NULL
+  `Logo Tim` text DEFAULT NULL,
+  `foto_tim` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tim`
 --
 
-INSERT INTO `tim` (`id_tim`, `nama_tim`, `kotaAsal`, `pelatih`, `stadion`, `Logo Tim`) VALUES
-(1, 'AREMA FC', 'MALANG', 'MARCOS VINICIUS SANTOS GONCALV', 'KANJURUHAN', 'https://upload.wikimedia.org/wikipedia/id/thumb/4/40/Logo_Arema_FC_2017_logo.svg/270px-Logo_Arema_FC_2017_logo.svg.png'),
-(2, 'BALI UNITED FC', 'BALI', 'JAN JANSEN', 'KAPTEN I WAYAN DIPTA', 'https://upload.wikimedia.org/wikipedia/id/thumb/5/5e/Bali_United_logo.svg/270px-Bali_United_logo.svg.png'),
-(3, 'BHAYANGKARA PRESISI LAMPUNG FC', 'BANDAR LAMPUNG', 'PAUL CHRISTOPHER MUNSTER', 'PKOR SUMPAH PEMUDA', 'https://upload.wikimedia.org/wikipedia/id/thumb/f/f3/Logo_Bhayangkara_FC.png/500px-Logo_Bhayangkara_FC.png'),
-(4, 'BORNEO FC ', 'SAMARINDA', 'FABIO ARAUJO LEFUNDES', 'SEGIRI', 'https://upload.wikimedia.org/wikipedia/id/thumb/4/4d/Logo_Borneo_FC.svg/300px-Logo_Borneo_FC.svg.png'),
-(5, 'DEWA UNITED FC', 'TANGERANG', 'JOHANNES HENDRIKUS OLDE RIEKER', 'BANTEN INTERNATIONAL STADIUM', 'https://upload.wikimedia.org/wikipedia/id/thumb/5/53/Dewa_United_FC.png/500px-Dewa_United_FC.png'),
-(6, 'MADURA UNITED FC', 'MADURA', 'ANGEL ALFREDO VERA', 'GELORA MADURA RATU PAMELINGAN', 'https://upload.wikimedia.org/wikipedia/id/8/8a/Madura_United_FC.png'),
-(7, 'MALUT UNITED FC', 'TERNATE', 'HENDRI SUSILO', 'KIE RAHA', 'https://upload.wikimedia.org/wikipedia/id/thumb/6/62/Malut_fc.png/250px-Malut_fc.png'),
-(8, 'PERSEBAYA SURABAYA', 'SURABAYA', 'EDUARDO PEREZ MORAN', 'GELORA BUNG TOMO', 'https://upload.wikimedia.org/wikipedia/id/thumb/a/a1/Persebaya_logo.svg/300px-Persebaya_logo.svg.png'),
-(9, 'PERSIB BANDUNG', 'BANDUNG', 'BOJAN HODAK', 'GELORA BANDUNG LAUTAN API', 'https://upload.wikimedia.org/wikipedia/id/thumb/0/0d/Logo_Persib_Bandung.png/500px-Logo_Persib_Bandung.png'),
-(10, 'PERSIJA JAKARTA', 'JAKARTA', 'MAURICIO FERREIRA DE SOUZA', 'JAKARTA INTERNATIONAL STADIUM', 'https://upload.wikimedia.org/wikipedia/id/9/94/Persija_Jakarta_logo.png'),
-(11, 'PERSIJAP JEPARA', 'JEPARA', 'MARIO LICINIO GUERREIRO LEMOS', 'GELORA BUMI KARTINI', 'https://upload.wikimedia.org/wikipedia/id/b/bc/Persijap.png'),
-(12, 'PERSIK KEDIRI', 'KEDIRI', 'ONG KIM SWEE', 'BRAWIJAYA', 'https://upload.wikimedia.org/wikipedia/id/thumb/c/cd/Logo_Persik_Kediri.png/500px-Logo_Persik_Kediri.png'),
-(13, 'PERSIS SOLO', 'SOLO', 'PETER DE ROO', 'MANAHAN', 'https://upload.wikimedia.org/wikipedia/id/thumb/d/d6/Persis_Solo_logo.svg/300px-Persis_Solo_logo.svg.png'),
-(14, 'PERSITA', 'TANGERANG', 'CARLOS GONZALES PENA', 'INDOMILK ARENA', 'https://upload.wikimedia.org/wikipedia/id/thumb/9/95/Persita_logo_%282020%29.svg/250px-Persita_logo_%282020%29.svg.png'),
-(15, 'PSBS BIAK', 'BIAK', 'DIVALDO DA SILVA TEIXEIRA ALVE', 'STADION CENDRAWASIH', 'https://upload.wikimedia.org/wikipedia/id/thumb/9/9b/Logo_PSBS_Biak_baru.png/300px-Logo_PSBS_Biak_baru.png'),
-(16, 'PSIM YOGYAKARTA', 'YOGYAKARTA', 'JACOBUS JOHANNES MARTINUS PAUL', 'SULTAN AGUNG', 'https://upload.wikimedia.org/wikipedia/id/9/9c/Logo_PSIM_Yogyakarta.png'),
-(17, 'PSM MAKASSAR', 'MAKASSAR', 'BERNARDO TAVARES', 'GELORA B. J. HABIBIE', 'https://upload.wikimedia.org/wikipedia/id/thumb/b/b8/Logo_PSM_Makasar_Baru.png/250px-Logo_PSM_Makasar_Baru.png'),
-(18, 'SEMEN PADANG FC', 'PADANG', 'DEJAN ANTONIC', 'H. AGUS SALIM', 'https://upload.wikimedia.org/wikipedia/id/thumb/1/1e/Semen_Padang_FC.png/330px-Semen_Padang_FC.png');
+INSERT INTO `tim` (`id_tim`, `nama_tim`, `kotaAsal`, `pelatih`, `stadion`, `Logo Tim`, `foto_tim`) VALUES
+(1, 'AREMA FC', 'MALANG', 'MARCOS VINICIUS SANTOS GONCALV', 'KANJURUHAN', 'https://upload.wikimedia.org/wikipedia/id/thumb/4/40/Logo_Arema_FC_2017_logo.svg/270px-Logo_Arema_FC_2017_logo.svg.png', 'https://assets.ligaindonesiabaru.com/uploads/images/club/lineup_AREMA_FC_1758695072.JPG'),
+(2, 'BALI UNITED FC', 'BALI', 'JAN JANSEN', 'KAPTEN I WAYAN DIPTA', 'https://upload.wikimedia.org/wikipedia/id/thumb/5/5e/Bali_United_logo.svg/270px-Bali_United_logo.svg.png', 'https://baliutd.oss-ap-southeast-5.aliyuncs.com//files/uploads/news/image/2025/Sep/25/68d517d52076b/whatsapp-image-2025-09-25-at-16-45-55-1.jpeg'),
+(3, 'BHAYANGKARA PRESISI LAMPUNG FC', 'BANDAR LAMPUNG', 'PAUL CHRISTOPHER MUNSTER', 'PKOR SUMPAH PEMUDA', 'https://upload.wikimedia.org/wikipedia/id/thumb/f/f3/Logo_Bhayangkara_FC.png/500px-Logo_Bhayangkara_FC.png', 'https://assets.ligaindonesiabaru.com/uploads/images/news/Bhayangkara-Presisi-Aktif-Pada-Bursa-Transfer-Putaran-Kedua-1699686948.JPG'),
+(4, 'BORNEO FC ', 'SAMARINDA', 'FABIO ARAUJO LEFUNDES', 'SEGIRI', 'https://upload.wikimedia.org/wikipedia/id/thumb/4/4d/Logo_Borneo_FC.svg/300px-Logo_Borneo_FC.svg.png', 'https://cdn.grid.id/crop/0x0:0x0/700x465/photo/2025/01/16/borneo-fcjpg-20250116075929.jpg'),
+(5, 'DEWA UNITED FC', 'TANGERANG', 'JOHANNES HENDRIKUS OLDE RIEKER', 'BANTEN INTERNATIONAL STADIUM', 'https://upload.wikimedia.org/wikipedia/id/thumb/5/53/Dewa_United_FC.png/500px-Dewa_United_FC.png', 'https://assets.ligaindonesiabaru.com/uploads/images/club/lineup_DEWA_UNITED_FC_1731051214.jpg'),
+(6, 'MADURA UNITED FC', 'MADURA', 'ANGEL ALFREDO VERA', 'GELORA MADURA RATU PAMELINGAN', 'https://upload.wikimedia.org/wikipedia/id/8/8a/Madura_United_FC.png', 'https://cdn0-production-images-kly.akamaized.net/6V9qX5L1PP44sW6tEkuqgWQVq0c=/0x0:0x0/1200x675/filters:quality(75):strip_icc():format(jpeg):watermark(kly-media-production/assets/images/watermarks/bola/watermark-color-landscape-new.png,1125,20,0)/kly-media-production/medias/4543802/original/031684000_1692437271-20230819AA_BRI_Liga_1_Persikabo_Vs_Madura_United-51.jpg'),
+(7, 'MALUT UNITED FC', 'TERNATE', 'HENDRI SUSILO', 'KIE RAHA', 'https://upload.wikimedia.org/wikipedia/id/thumb/6/62/Malut_fc.png/250px-Malut_fc.png', 'https://cdn.grid.id/crop/0x0:0x0/700x465/photo/2024/08/25/000_apw2001011564643jpg-20240825091941.jpg'),
+(8, 'PERSEBAYA SURABAYA', 'SURABAYA', 'EDUARDO PEREZ MORAN', 'GELORA BUNG TOMO', 'https://upload.wikimedia.org/wikipedia/id/thumb/a/a1/Persebaya_logo.svg/300px-Persebaya_logo.svg.png', 'https://www.persebaya.id/thumbs/extra-large/uploads/post/2018/11/16/IMG-20181116-WA00101.jpg'),
+(9, 'PERSIB BANDUNG', 'BANDUNG', 'BOJAN HODAK', 'GELORA BANDUNG LAUTAN API', 'https://upload.wikimedia.org/wikipedia/id/thumb/0/0d/Logo_Persib_Bandung.png/500px-Logo_Persib_Bandung.png', 'https://assets.ligaindonesiabaru.com/uploads/images/club/lineup_PERSIB_BANDUNG_1754842168.jpg'),
+(10, 'PERSIJA JAKARTA', 'JAKARTA', 'MAURICIO FERREIRA DE SOUZA', 'JAKARTA INTERNATIONAL STADIUM', 'https://upload.wikimedia.org/wikipedia/id/9/94/Persija_Jakarta_logo.png', 'https://assets.ligaindonesiabaru.com/uploads/images/club/lineup_PERSIJA_JAKARTA_1758695753.JPG'),
+(11, 'PERSIJAP JEPARA', 'JEPARA', 'MARIO LICINIO GUERREIRO LEMOS', 'GELORA BUMI KARTINI', 'https://upload.wikimedia.org/wikipedia/id/b/bc/Persijap.png', 'https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/224/2025/10/03/skuad-persijap-jepara-alexis-gomez-instagram-1414191465.jpg'),
+(12, 'PERSIK KEDIRI', 'KEDIRI', 'ONG KIM SWEE', 'BRAWIJAYA', 'https://upload.wikimedia.org/wikipedia/id/thumb/c/cd/Logo_Persik_Kediri.png/500px-Logo_Persik_Kediri.png', 'https://assets.ligaindonesiabaru.com/uploads/images/news/Sempat-Terpuruk-di-Liga-3--Persik-Kediri-Selangkah-Lagi-ke-Liga-1-1574327802.jpg'),
+(13, 'PERSIS SOLO', 'SOLO', 'PETER DE ROO', 'MANAHAN', 'https://upload.wikimedia.org/wikipedia/id/thumb/d/d6/Persis_Solo_logo.svg/300px-Persis_Solo_logo.svg.png', 'https://assets.ligaindonesiabaru.com/uploads/images/news/Stadion-Manahan-Lebih-Angker-Buat-Persis-Solo-1744281964.JPG'),
+(14, 'PERSITA', 'TANGERANG', 'CARLOS GONZALES PENA', 'INDOMILK ARENA', 'https://upload.wikimedia.org/wikipedia/id/thumb/9/95/Persita_logo_%282020%29.svg/250px-Persita_logo_%282020%29.svg.png', 'https://wartatangerang.com/content/uploads/2025/01/pasukan-persita-tangerang.jpg'),
+(15, 'PSBS BIAK', 'BIAK', 'DIVALDO DA SILVA TEIXEIRA ALVE', 'STADION CENDRAWASIH', 'https://upload.wikimedia.org/wikipedia/id/thumb/9/9b/Logo_PSBS_Biak_baru.png/300px-Logo_PSBS_Biak_baru.png', 'https://cdn.grid.id/crop/0x0:0x0/700x465/photo/2025/02/04/whatsapp-image-2025-02-02-at-20-20250204090709.jpeg'),
+(16, 'PSIM YOGYAKARTA', 'YOGYAKARTA', 'JACOBUS JOHANNES MARTINUS PAUL', 'SULTAN AGUNG', 'https://upload.wikimedia.org/wikipedia/id/9/9c/Logo_PSIM_Yogyakarta.png', 'https://assets.ligaindonesiabaru.com/uploads/images/news/Tanpa-Kiper-Andalan--PSIM-Boyong-24-Pemain-ke-Ternate-1756373484.jpg'),
+(17, 'PSM MAKASSAR', 'MAKASSAR', 'BERNARDO TAVARES', 'GELORA B. J. HABIBIE', 'https://upload.wikimedia.org/wikipedia/id/thumb/b/b8/Logo_PSM_Makasar_Baru.png/250px-Logo_PSM_Makasar_Baru.png', 'https://assets.goal.com/images/v3/bltcce3ff30b4307790/2a072506001f97565bc740c1b0c196211103bb7e.jpg?auto=webp&format=pjpg&width=3840&quality=60'),
+(18, 'SEMEN PADANG FC', 'PADANG', 'DEJAN ANTONIC', 'H. AGUS SALIM', 'https://upload.wikimedia.org/wikipedia/id/thumb/1/1e/Semen_Padang_FC.png/330px-Semen_Padang_FC.png', 'https://cdn.antaranews.com/cache/1200x800/2025/07/08/IMG_0511.jpg');
 
 -- --------------------------------------------------------
 
@@ -444,7 +469,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `klasemen`
 --
 ALTER TABLE `klasemen`
-  MODIFY `id_klasemen` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_klasemen` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

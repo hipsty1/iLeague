@@ -262,7 +262,7 @@ include 'php/connect.php';
               <a class="nav-link active" href="pages/klasemen.php">Klasemen</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/tim.html">Tim</a>
+              <a class="nav-link" href="pages/tim.php">Tim</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="pages/reward.html">Reward</a>
