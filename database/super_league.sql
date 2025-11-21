@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2025 at 04:02 PM
+-- Generation Time: Nov 21, 2025 at 06:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -426,9 +426,19 @@ INSERT INTO `tim` (`id_tim`, `nama_tim`, `kotaAsal`, `pelatih`, `stadion`, `Logo
 
 CREATE TABLE `user` (
   `id` int(9) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `username`, `password`) VALUES
+(1, 'hendri@gmail.com', 'hipsty17', '123240066'),
+(2, 'restu@gmail.com', 'restufrmnsyh', '123240050'),
+(3, 'zenmok@gmail.com', 'zentiaw', '123240061');
 
 --
 -- Indexes for dumped tables
@@ -470,6 +480,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `klasemen`
   MODIFY `id_klasemen` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

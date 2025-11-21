@@ -1,6 +1,7 @@
 <?php
-require_once 'auth.php';
+session_start();
+session_unset();
 session_destroy();
-header('Location: signin.html');
-exit;
+header("Location: ../pages/signin.php");
+exit();
 ?>

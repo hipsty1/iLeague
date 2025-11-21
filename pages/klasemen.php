@@ -273,7 +273,7 @@ foreach ($klasemen as $t) {
             <div class="sponsor-role">Lead Partner</div>
           </div>
           <div class="text-center">
-            <img class="sponsor-logo" src="https://logo.clearbit.com/adobe.com" alt="Adobe">
+            <img class="sponsor-logo" src="https://img.logo.dev/adobe.com?token=live_6a1a28fd-6420-4492-aeb0-b297461d9de2&size=128&retina=false&format=png&theme=dark" alt="Adobe">
             <div class="sponsor-role">Official Creativity Partner</div>
           </div>
           <div class="text-center">

@@ -1,22 +1,25 @@
 <?php
-// update_password.php — demo endpoint (session only; no DB write)
-require_once 'auth.php';
-require_login();
+session_start();
+include "connect.php";
 
-$new = $_POST['password'] ?? '';
-if (!$new) {
-  http_response_code(400);
-  echo "Password wajib diisi";
-  exit;
+if (!isset($_SESSION['username'])) {
+  header("Location: ../pages/signin.php");
+  exit();
 }
-$_SESSION['user']['password_hash'] = password_hash($new, PASSWORD_DEFAULT);
 
-// If request is AJAX, return JSON, else redirect
-if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-  header('Content-Type: application/json');
-  echo json_encode(['ok'=>true]);
-  exit;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $username = $_SESSION['username'];
+  $new_password = $_POST['password'];
+
+  $sql = "UPDATE user SET password = ? WHERE username = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("ss", $new_password, $username);
+
+  if ($stmt->execute()) {
+    echo "<script>alert('Password berhasil diperbarui!'); window.location.href='profile.php';</script>";
+  } else {
+    echo "<script>alert('Gagal memperbarui password.'); window.location.href='profile.php';</script>";
+  }
+  $stmt->close();
 }
-header('Location: profile.php');
-exit;
 ?>
