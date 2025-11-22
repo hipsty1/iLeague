@@ -1,5 +1,20 @@
 <?php 
     include "../php/connect.php";
+    session_start();
+    // Cek apakah user sudah login
+    $timeout_duration = 600; // durasi timeout dalam detik
+    if(!isset($_SESSION['username'])){
+        echo "<script>alert('Anda Belum Login!'); window.location.href='pages/signin.php';</script>";
+        exit();
+    }
+    // Cek Timeout Session
+    if(isset($_SESSION['start_time']) && (time() - $_SESSION['start_time']) > $timeout_duration){
+        session_unset();
+        session_destroy();
+        echo "<script>alert('Sesi Anda Telah Berakhir. Silakan Login Kembali.'); window.location.href='pages/signin.php';</script>";
+        exit();
+    }
+    $_SESSION['start_time'] = time();
 ?>
 
 <!doctype html>
@@ -193,26 +208,29 @@
             </li>
           </ul>
           <div class="d-flex align-items-center gap-3">
-            <!-- Profile dropdown (shown after login) -->
-            <div class="dropdown d-none" data-auth="profile-wrap">
-              <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB4Mj0nMScgeTE9JzAnIHkyPScxJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyNkOWQ5ZDknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyNmMmYyZjInLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48Y2lyY2xlIGN4PSc2NCcgY3k9JzY0JyByPSc2NCcgZmlsbD0ndXJsKCNnKScvPjxjaXJjbGUgY3g9JzY0JyBjeT0nNTAnIHI9JzI2JyBmaWxsPScjYjViNWI1Jy8+PHBhdGggZD0nTTIwLDExNmE0NCw0NCAwIDAgMSA4OCwwJyBmaWxsPScjYjViNWI1Jy8+PC9zdmc+" alt="avatar" class="rounded-circle" width="32" height="32" style="border:1px solid #ced4da;"/>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li class="px-3 py-2">
-                  <div class="small text-muted">Signed in</div>
-                  <div class="fw-semibold" data-profile="email">user@example.com</div>
-                </li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="profil.html"><i class="bi bi-person-gear me-2"></i>Profil</a></li>
-                <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
-              </ul>
-            </div>
-
-            <i class="bi bi-search"></i>
-            <a class="btn btn-outline-dark rounded-pill px-3" href="signin.html" data-auth="signin-btn"
-              >Sign in</a
-            >
+          <?php if (isset($_SESSION['username'])): ?>
+           <!-- Profile dropdown (shown after login) -->
+            <div class="dropdown" data-auth="profile-wrap">
+                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB4Mj0nMScgeTE9JzAnIHkyPScxJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyNkOWQ5ZDknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyNmMmYyZjInLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48Y2lyY2xlIGN4PSc2NCcgY3k9JzY0JyByPSc2NCcgZmlsbD0ndXJsKCNnKScvPjxjaXJjbGUgY3g9JzY0JyBjeT0nNTAnIHI9JzI2JyBmaWxsPScjYjViNWI1Jy8+PHBhdGggZD0nTTIwLDExNmE0NCw0NCAwIDAgMSA4OCwwJyBmaWxsPScjYjViNWI1Jy8+PC9zdmc+" 
+                      alt="avatar" class="rounded-circle" width="32" height="32" style="border:1px solid #ced4da;"/>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li class="px-3 py-2">
+                    <div class="small text-muted">Signed in</div>
+                    <div class="fw-semibold" data-profile="email">
+                      <?= htmlspecialchars($_SESSION['username']); ?>
+                    </div>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="../php/profile.php"><i class="bi bi-person-gear me-2"></i>Profil</a></li>
+                  <li><a class="dropdown-item text-danger" href="../php/logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                </ul>
+              </div>
+            <?php else: ?>
+              <i class="bi bi-search"></i>
+              <a class="btn btn-outline-dark rounded-pill px-3" href="pages/signin.php" data-auth="signin-btn">Sign in</a>
+          <?php endif; ?>
           </div>
         </div>
       </div>
