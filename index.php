@@ -256,7 +256,7 @@
     <!-- NAVBAR (disederhanakan: Klasemen, Tim, Reward) -->
     <nav class="navbar navbar-expand-lg pl-navbar border-bottom sticky-top">
       <div class="container">
-        <a class="navbar-brand brand-badge d-flex align-items-center" href="#">
+        <a class="navbar-brand brand-badge d-flex align-items-center" href="index.php">
           <img src="assets/image/logo.png" alt="ILeague Logo" width="35" height="35" class="me-2">
           <span>ILeague</span>
         </a>
@@ -280,7 +280,7 @@
               <a class="nav-link" href="pages/tim.php">Tim</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/reward.html">Reward</a>
+              <a class="nav-link" href="pages/reward.php">Reward</a>
             </li>
           </ul>
           <div class="d-flex align-items-center gap-3">

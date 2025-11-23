@@ -204,7 +204,7 @@
               <a class="nav-link active" href="tim.php">Tim</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="reward.html">Reward</a>
+              <a class="nav-link" href="reward.php">Reward</a>
             </li>
           </ul>
           <div class="d-flex align-items-center gap-3">
