@@ -600,12 +600,12 @@
           <div class="col-6 col-lg-3">
             <div class="footer-title">LIGA INDONESIA</div>
             <ul class="list-unstyled small mb-0">
-              <li class="mb-2"><a href="#">Beranda</a></li>
+              <li class="mb-2"><a href="index.php">Beranda</a></li>
               <li class="mb-2">
-                <a href="pages/match.html">Jadwal Dan Hasil Pertandingan</a>
+                <a href="pages/match.php">Jadwal Dan Hasil Pertandingan</a>
               </li>
-              <li class="mb-2"><a href="pages/klasemen.html">Klasemen</a></li>
-              <li class="mb-2"><a href="pages/tim.html">Klub</a></li>
+              <li class="mb-2"><a href="pages/klasemen.php">Klasemen</a></li>
+              <li class="mb-2"><a href="pages/tim.php">Klub</a></li>
             </ul>
           </div>
           <div class="col-12 col-lg-3">

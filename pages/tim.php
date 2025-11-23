@@ -4,14 +4,14 @@
     // Cek apakah user sudah login
     $timeout_duration = 600; // durasi timeout dalam detik
     if(!isset($_SESSION['username'])){
-        echo "<script>alert('Anda Belum Login!'); window.location.href='pages/signin.php';</script>";
+        echo "<script>alert('Anda Belum Login!'); window.location.href='signin.php';</script>";
         exit();
     }
     // Cek Timeout Session
     if(isset($_SESSION['start_time']) && (time() - $_SESSION['start_time']) > $timeout_duration){
         session_unset();
         session_destroy();
-        echo "<script>alert('Sesi Anda Telah Berakhir. Silakan Login Kembali.'); window.location.href='pages/signin.php';</script>";
+        echo "<script>alert('Sesi Anda Telah Berakhir. Silakan Login Kembali.'); window.location.href='signin.php';</script>";
         exit();
     }
     $_SESSION['start_time'] = time();
@@ -328,29 +328,10 @@
         <div class="col-6 col-lg-3">
           <div class="footer-title">LIGA INDONESIA</div>
           <ul class="list-unstyled small mb-0">
-            <li class="mb-2"><a href="index.html">Beranda</a></li>
-            <li class="mb-2"><a href="#">Jadwal Dan Hasil Pertandingan</a></li>
-            <li class="mb-2"><a href="klasemen.html">Klasemen</a></li>
-            <li class="mb-2"><a href="index.html#tim">Klub</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-lg-3">
-          <div class="footer-title">MEDIA</div>
-          <ul class="list-unstyled small mb-0">
-            <li class="mb-2"><a href="#">Berita</a></li>
-            <li class="mb-2"><a href="#">Rilis</a></li>
-            <li class="mb-2"><a href="#">Foto</a></li>
-            <li class="mb-2"><a href="#">Video</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-lg-3">
-          <div class="footer-title">STATS</div>
-          <ul class="list-unstyled small mb-0">
-            <li class="mb-2"><a href="#">Booklet Mingguan</a></li>
-            <li class="mb-2"><a href="#">Aksi Top Klub</a></li>
-            <li class="mb-2"><a href="#">Aksi Top Pemain</a></li>
-            <li class="mb-2"><a href="#">Statistik Klub <span class="text-danger">Segera Hadir</span></a></li>
-            <li class="mb-2"><a href="#">Statistik Pemain <span class="text-danger">Segera Hadir</span></a></li>
+            <li class="mb-2"><a href="../index.php">Beranda</a></li>
+            <li class="mb-2"><a href="match.php">Jadwal Dan Hasil Pertandingan</a></li>
+            <li class="mb-2"><a href="klasemen.php">Klasemen</a></li>
+            <li class="mb-2"><a href="tim.php">Klub</a></li>
           </ul>
         </div>
         <div class="col-12 col-lg-3">

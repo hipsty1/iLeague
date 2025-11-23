@@ -23,7 +23,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 $id_tim = $_GET['id'];
 
-// Ambil data tim
+// Ambil data tim profil
 $sql_tim = "SELECT id_tim, nama_tim, kotaAsal, pelatih, stadion, `Logo Tim` AS logo 
             FROM tim WHERE id_tim = ?";
 $stmt = $conn->prepare($sql_tim);
@@ -66,21 +66,20 @@ if (array_key_exists($namaTimUpper, $warna_tim)) {
     $primary = $warna_tim[$namaTimUpper];
 }
 
-// Ambil 5 pertandingan terakhir
+// --- PERBAIKAN UTAMA DISINI ---
+// Mengambil 5 pertandingan terakhir berdasarkan ID PERTANDINGAN (Input Terakhir)
+// Bukan berdasarkan tanggal.
 $sql_match = "SELECT 
-                p.tanggal_pertandingan,
+                p.id_pertandingan,
                 p.tim_home,
                 p.tim_away,
                 p.skor_tim_home,
-                p.skor_tim_away,
-                th.nama_tim AS home,
-                ta.nama_tim AS away
+                p.skor_tim_away
               FROM pertandingan p
-              JOIN tim th ON p.tim_home = th.id_tim
-              JOIN tim ta ON p.tim_away = ta.id_tim
               WHERE p.tim_home = ? OR p.tim_away = ?
-              ORDER BY p.tanggal_pertandingan DESC
+              ORDER BY p.id_pertandingan DESC 
               LIMIT 5";
+
 $stmt2 = $conn->prepare($sql_match);
 $stmt2->bind_param("ii", $id_tim, $id_tim);
 $stmt2->execute();
@@ -94,12 +93,18 @@ $seri = 0;
 $kalah = 0;
 
 while ($row = $result2->fetch_assoc()) {
+    // Tentukan posisi tim kita (Home atau Away)
     $isHome = ($row['tim_home'] == $id_tim);
+    
+    // Tentukan gol kita dan gol lawan
     $gol_for = $isHome ? $row['skor_tim_home'] : $row['skor_tim_away'];
     $gol_against = $isHome ? $row['skor_tim_away'] : $row['skor_tim_home'];
+    
+    // Hitung total statistik
     $gol_masuk += $gol_for;
     $gol_kebobolan += $gol_against;
 
+    // Tentukan W/D/L
     if ($gol_for > $gol_against) {
         $hasil = 'W';
         $menang++;
@@ -125,7 +130,7 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profil Tim — <?= htmlspecialchars($tim['nama_tim']); ?> | ILeague</title>
+  <title>Klub - <?= htmlspecialchars($tim['nama_tim']); ?> | ILeague</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
@@ -155,9 +160,6 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
       width: 180px;
       height: 180px;
       object-fit: contain;
-      background: transparent;
-      border: none;
-      border-radius: 0;
       display: block;
       margin: 0 auto;
     }
@@ -173,6 +175,8 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
       color: <?= $primary[0]; ?>;
       margin-right: 6px;
     }
+    
+    /* CSS KOTAK WDL */
     .stat-box {
       width: 40px;
       height: 40px;
@@ -187,6 +191,7 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
     .W { background: #28a745; } /* hijau */
     .D { background: #adb5bd; color:#000; } /* abu/putih */
     .L { background: #dc3545; } /* merah */
+
     .stat-card {
       text-align: center;
       background: #fff;
@@ -194,6 +199,26 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       padding: 15px;
     }
+
+    /* CSS Match Sisa */
+    .match-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      font-size: 0.9rem;
+      background-color: #fff;
+      border: 1px solid #e9ecef;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .team-side { display: flex; align-items: center; width: 45%; }
+    .team-side.home { justify-content: flex-start; }
+    .team-side.away { justify-content: flex-end; text-align: right; }
+    .vs-badge { font-weight: bold; color: #adb5bd; font-size: 0.8rem; width: 10%; text-align: center; }
+    .match-mini-logo { width: 30px; height: 30px; object-fit: contain; }
+    .match-team-name { font-weight: 600; margin: 0 8px; line-height: 1.2; }
   </style>
 </head>
 <body>
@@ -202,7 +227,6 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
     <i class="bi bi-arrow-left"></i> Kembali ke Daftar Tim
   </a>
 
-  <!-- Profil Tim -->
   <div class="card mb-5">
     <div class="card-header-custom">Profil Tim</div>
     <div class="card-body">
@@ -220,16 +244,17 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
     </div>
   </div>
 
-    <!-- Statistik & Pertandingan Selanjutnya (2 Kolom) -->
   <div class="row g-4">
-    <!-- Statistik Tim -->
+    
     <div class="col-md-6">
       <div class="card h-100">
-        <div class="card-header-custom">Statistik 5 Pertandingan Terakhir</div>
+        <div class="card-header-custom">5 Pertandingan Terakhir</div>
         <div class="card-body text-center">
-          <div class="mb-3">
+          
+          <div class="mb-4">
             <?php
             if ($total_main > 0) {
+                // Tampilkan kotak W D L
                 foreach ($matches as $h) {
                     echo "<div class='stat-box $h'>$h</div>";
                 }
@@ -241,114 +266,49 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
 
           <?php if ($total_main > 0): ?>
           <div class="row justify-content-center">
-            <div class="col-md-4 stat-card">
-              <h5 class="text-success fw-bold"><?= $gol_masuk; ?></h5>
-              <p class="text-muted mb-0">Gol Dicetak</p>
+            <div class="col-4 stat-card border-0 shadow-none">
+              <h5 class="text-success fw-bold mb-0"><?= $gol_masuk; ?></h5>
+              <small class="text-muted">Gol</small>
             </div>
-            <div class="col-md-4 stat-card">
-              <h5 class="text-danger fw-bold"><?= $gol_kebobolan; ?></h5>
-              <p class="text-muted mb-0">Gol Kebobolan</p>
+            <div class="col-4 stat-card border-0 shadow-none">
+              <h5 class="text-danger fw-bold mb-0"><?= $gol_kebobolan; ?></h5>
+              <small class="text-muted">Kebobolan</small>
             </div>
-            <div class="col-md-4 stat-card">
-              <h5 class="fw-bold"><?= $winrate; ?>%</h5>
-              <p class="text-muted mb-0">Win Rate</p>
+            <div class="col-4 stat-card border-0 shadow-none">
+              <h5 class="fw-bold mb-0"><?= $winrate; ?>%</h5>
+              <small class="text-muted">Win Rate</small>
             </div>
           </div>
           <?php endif; ?>
+
         </div>
       </div>
     </div>
 
-    <!-- Pertandingan Selanjutnya -->
-<div class="col-md-6">
+    <div class="col-md-6">
       <div class="card h-100">
         <div class="card-header-custom">Pertandingan Selanjutnya</div>
         <div class="card-body">
-          <style>
-            .match-item {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              padding: 10px 15px;
-              font-size: 0.9rem;
-              background-color: #fff;
-              border: 1px solid #e9ecef;
-              border-radius: 10px;
-              margin-bottom: 10px;
-              box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            }
-            .team-side {
-              display: flex;
-              align-items: center;
-              width: 45%; /* Membagi ruang agar seimbang */
-            }
-            .team-side.home {
-              justify-content: flex-start; /* Home rata kiri */
-            }
-            .team-side.away {
-              justify-content: flex-end; /* Away rata kanan */
-              text-align: right;
-            }
-            .vs-badge {
-              font-weight: bold;
-              color: #adb5bd;
-              font-size: 0.8rem;
-              width: 10%;
-              text-align: center;
-            }
-            .mini-logo {
-              width: 30px;
-              height: 30px;
-              object-fit: contain;
-            }
-            .team-name {
-              font-weight: 600;
-              margin: 0 8px;
-              line-height: 1.2;
-            }
-          </style>
-
           <?php
           include "../php/connect.php";
-
-          // Data tim profil saat ini
+          // Data tim profil
           $my_name = $tim['nama_tim'];
-          $my_logo = $tim['logo']; // Pastikan query utama di atas file sudah mengambil 'Logo Tim' as logo
+          $my_logo = $tim['logo'];
 
           $sql_sisa = "
-            -- Bagian 1: Kita (Home) vs Musuh (Away)
-            SELECT 
-                t.nama_tim AS musuh_nama,
-                t.`Logo Tim` AS musuh_logo,
-                'home' AS posisi_kita
+            SELECT t.nama_tim AS musuh_nama, t.`Logo Tim` AS musuh_logo, 'home' AS posisi_kita
             FROM tim t
             WHERE t.id_tim != ? 
-            AND NOT EXISTS (
-                SELECT 1 FROM pertandingan p 
-                WHERE p.tim_home = ? AND p.tim_away = t.id_tim
-            )
-
+            AND NOT EXISTS (SELECT 1 FROM pertandingan p WHERE p.tim_home = ? AND p.tim_away = t.id_tim)
             UNION ALL
-
-            -- Bagian 2: Musuh (Home) vs Kita (Away)
-            SELECT 
-                t.nama_tim AS musuh_nama,
-                t.`Logo Tim` AS musuh_logo,
-                'away' AS posisi_kita
+            SELECT t.nama_tim AS musuh_nama, t.`Logo Tim` AS musuh_logo, 'away' AS posisi_kita
             FROM tim t
             WHERE t.id_tim != ? 
-            AND NOT EXISTS (
-                SELECT 1 FROM pertandingan p 
-                WHERE p.tim_home = t.id_tim AND p.tim_away = ?
-            )
-            
-            -- Urutkan berdasarkan nama musuh (atau bisa random)
-            ORDER BY musuh_nama ASC
-            LIMIT 3 
+            AND NOT EXISTS (SELECT 1 FROM pertandingan p WHERE p.tim_home = t.id_tim AND p.tim_away = ?)
+            ORDER BY musuh_nama ASC LIMIT 3 
           ";
 
           $stmt = $conn->prepare($sql_sisa);
-          // Binding: id_tim, id_tim, id_tim, id_tim
           $stmt->bind_param("iiii", $id_tim, $id_tim, $id_tim, $id_tim);
           $stmt->execute();
           $result_sisa = $stmt->get_result();
@@ -356,45 +316,31 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
           if ($result_sisa->num_rows > 0) {
             echo "<div>";
             while ($row = $result_sisa->fetch_assoc()) {
-                // Tentukan siapa Home siapa Away untuk tampilan
                 if ($row['posisi_kita'] == 'home') {
-                    // Kita Home
-                    $home_name = $my_name;
-                    $home_logo = $my_logo;
-                    $away_name = $row['musuh_nama'];
-                    $away_logo = $row['musuh_logo'];
+                    $home_name = $my_name; $home_logo = $my_logo;
+                    $away_name = $row['musuh_nama']; $away_logo = $row['musuh_logo'];
                 } else {
-                    // Musuh Home
-                    $home_name = $row['musuh_nama'];
-                    $home_logo = $row['musuh_logo'];
-                    $away_name = $my_name;
-                    $away_logo = $my_logo;
+                    $home_name = $row['musuh_nama']; $home_logo = $row['musuh_logo'];
+                    $away_name = $my_name; $away_logo = $my_logo;
                 }
               ?>
-              
               <div class="match-item">
                 <div class="team-side home">
-                    <img src="<?= htmlspecialchars($home_logo); ?>" class="mini-logo" alt="Logo">
-                    <span class="team-name"><?= htmlspecialchars($home_name); ?></span>
+                    <img src="<?= htmlspecialchars($home_logo); ?>" class="match-mini-logo" alt="Logo">
+                    <span class="match-team-name"><?= htmlspecialchars($home_name); ?></span>
                 </div>
-
                 <div class="vs-badge">VS</div>
-
                 <div class="team-side away">
-                    <span class="team-name"><?= htmlspecialchars($away_name); ?></span>
-                    <img src="<?= htmlspecialchars($away_logo); ?>" class="mini-logo" alt="Logo">
+                    <span class="match-team-name"><?= htmlspecialchars($away_name); ?></span>
+                    <img src="<?= htmlspecialchars($away_logo); ?>" class="match-mini-logo" alt="Logo">
                 </div>
               </div>
-
               <?php
             }
             echo "</div>";
           } else {
-            echo "<div class='d-flex align-items-center justify-content-center h-100'>
-                    <p class='text-muted mb-0'>Semua pertandingan sudah dimainkan.</p>
-                  </div>";
+            echo "<div class='d-flex align-items-center justify-content-center h-100'><p class='text-muted mb-0'>Semua pertandingan sudah dimainkan.</p></div>";
           }
-
           $stmt->close();
           $conn->close();
           ?>
@@ -403,7 +349,6 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
     </div>
 
   </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
