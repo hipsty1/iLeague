@@ -677,44 +677,6 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
-// === Simple session using localStorage ===
-function isLoggedIn(){ return localStorage.getItem('isLoggedIn') === 'true'; }
-function getEmail(){ return localStorage.getItem('authEmail') || ''; }
-function getPassword(){ return localStorage.getItem('authPassword') || ''; }
-function isAdmin(){ return localStorage.getItem('isAdmin') === 'true'; }
-
-function renderAuthUI(){
-  const signBtn = document.querySelector('[data-auth=signin-btn]');
-  const profileWrap = document.querySelector('[data-auth=profile-wrap]');
-  if(signBtn && profileWrap){
-    if(isLoggedIn()){
-      signBtn.classList.add('d-none');
-      profileWrap.classList.remove('d-none');
-      document.querySelectorAll('[data-profile=email]').forEach(el => el.textContent = getEmail());
-    }else{
-      profileWrap.classList.add('d-none');
-      signBtn.classList.remove('d-none');
-    }
-  }
-  // Inject Admin menu item in navbar if admin
-  const nav = document.querySelector('.navbar .navbar-nav');
-  if(nav && isAdmin() && !document.getElementById('adminMenuItem')){
-    const li = document.createElement('li');
-    li.className = 'nav-item';
-    li.id = 'adminMenuItem';
-    li.innerHTML = '<a class="nav-link text-danger fw-bold" href="admin.html">Edit Klasemen</a>';
-    nav.appendChild(li);
-  }
-}
-
-function logout(){
-  localStorage.removeItem('isLoggedIn');
-  localStorage.removeItem('authEmail');
-  localStorage.removeItem('authPassword');
-  localStorage.removeItem('isAdmin');
-  renderAuthUI();
-}
-document.addEventListener('DOMContentLoaded', renderAuthUI);
 </script>
 </body>
 </html>

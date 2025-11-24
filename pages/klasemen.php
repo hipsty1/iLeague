@@ -241,7 +241,7 @@ usort($klasemen, function($a, $b){
   return $b['gol_masuk'] - $a['gol_masuk'];
 });
 
-// Simpan ke tabel klasemen (optional)
+// Simpan ke tabel klasemen
 $conn->query("TRUNCATE TABLE klasemen");
 $pos = 1;
 foreach ($klasemen as $t) {
@@ -361,66 +361,5 @@ foreach ($klasemen as $t) {
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Competition dropdown
-    document.querySelectorAll('.competition-opt').forEach(function(a){
-      a.addEventListener('click', function(e){
-        e.preventDefault();
-        document.getElementById('competitionLabel').textContent = a.dataset.comp;
-      });
-    });
-    // Season dropdown
-    document.querySelectorAll('.season-opt').forEach(function(a){
-      a.addEventListener('click', function(e){
-        e.preventDefault();
-        document.getElementById('seasonLabel').textContent = a.dataset.season;
-      });
-    });
-    // Reset
-    document.getElementById('resetBtn').addEventListener('click', function(){
-      document.getElementById('competitionLabel').textContent = 'Premier League';
-      document.getElementById('seasonLabel').textContent = '2025/26';
-    });
-  </script>
-<script>
-// === Simple session using localStorage ===
-function isLoggedIn(){ return localStorage.getItem('isLoggedIn') === 'true'; }
-function getEmail(){ return localStorage.getItem('authEmail') || ''; }
-function getPassword(){ return localStorage.getItem('authPassword') || ''; }
-function isAdmin(){ return localStorage.getItem('isAdmin') === 'true'; }
-
-function renderAuthUI(){
-  const signBtn = document.querySelector('[data-auth=signin-btn]');
-  const profileWrap = document.querySelector('[data-auth=profile-wrap]');
-  if(signBtn && profileWrap){
-    if(isLoggedIn()){
-      signBtn.classList.add('d-none');
-      profileWrap.classList.remove('d-none');
-      document.querySelectorAll('[data-profile=email]').forEach(el => el.textContent = getEmail());
-    }else{
-      profileWrap.classList.add('d-none');
-      signBtn.classList.remove('d-none');
-    }
-  }
-  // Inject Admin menu item in navbar if admin
-  const nav = document.querySelector('.navbar .navbar-nav');
-  if(nav && isAdmin() && !document.getElementById('adminMenuItem')){
-    const li = document.createElement('li');
-    li.className = 'nav-item';
-    li.id = 'adminMenuItem';
-    li.innerHTML = '<a class="nav-link text-danger fw-bold" href="admin.html">Edit Klasemen</a>';
-    nav.appendChild(li);
-  }
-}
-
-function logout(){
-  localStorage.removeItem('isLoggedIn');
-  localStorage.removeItem('authEmail');
-  localStorage.removeItem('authPassword');
-  localStorage.removeItem('isAdmin');
-  renderAuthUI();
-}
-document.addEventListener('DOMContentLoaded', renderAuthUI);
-</script>
 </body>
 </html>

@@ -66,9 +66,8 @@ if (array_key_exists($namaTimUpper, $warna_tim)) {
     $primary = $warna_tim[$namaTimUpper];
 }
 
-// --- PERBAIKAN UTAMA DISINI ---
+
 // Mengambil 5 pertandingan terakhir berdasarkan ID PERTANDINGAN (Input Terakhir)
-// Bukan berdasarkan tanggal.
 $sql_match = "SELECT 
                 p.id_pertandingan,
                 p.tim_home,
@@ -245,7 +244,6 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
   </div>
 
   <div class="row g-4">
-    
     <div class="col-md-6">
       <div class="card h-100">
         <div class="card-header-custom">5 Pertandingan Terakhir</div>
@@ -280,7 +278,6 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
             </div>
           </div>
           <?php endif; ?>
-
         </div>
       </div>
     </div>
@@ -347,7 +344,6 @@ $winrate = $total_main > 0 ? round(($menang / $total_main) * 100, 1) : 0;
         </div>
       </div>
     </div>
-
   </div>
 </div>
 

@@ -4,14 +4,14 @@
     // Cek apakah user sudah login
     $timeout_duration = 600; // durasi timeout dalam detik
     if(!isset($_SESSION['username'])){
-        echo "<script>alert('Anda Belum Login!'); window.location.href='pages/signin.php';</script>";
+        echo "<script>alert('Anda Belum Login!'); window.location.href='signin.php';</script>";
         exit();
     }
     // Cek Timeout Session
     if(isset($_SESSION['start_time']) && (time() - $_SESSION['start_time']) > $timeout_duration){
         session_unset();
         session_destroy();
-        echo "<script>alert('Sesi Anda Telah Berakhir. Silakan Login Kembali.'); window.location.href='pages/signin.php';</script>";
+        echo "<script>alert('Sesi Anda Telah Berakhir. Silakan Login Kembali.'); window.location.href='signin.php';</script>";
         exit();
     }
     $_SESSION['start_time'] = time();
