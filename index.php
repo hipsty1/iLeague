@@ -317,11 +317,12 @@
         <!-- LEFT: HERO -->
         <div class="col-lg-8">
           <div class="card hero-card shadow-sm mb-4">
+            <a href="pages/match.php">
             <div
               class="img-wrap"
               style="
                 background-image: url('assets/image/news/topNews.png');
-              "
+              " 
             >
               <div class="hero-overlay">
                 <div>
@@ -336,7 +337,8 @@
                   </p>
                 </div>
               </div>
-            </div>
+            </div>  
+            </a>
           </div>
 
           <!-- Latest News grid -->
