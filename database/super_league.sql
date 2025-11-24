@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2025 at 01:45 PM
+-- Generation Time: Nov 24, 2025 at 06:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,15 +30,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `klasemen` (
   `id_klasemen` int(9) NOT NULL,
   `id_tim` int(9) NOT NULL,
-  `main` int(10) NOT NULL,
-  `menang` int(10) NOT NULL,
-  `seri` int(10) NOT NULL,
-  `kalah` int(10) NOT NULL,
-  `gol_masuk` int(10) NOT NULL,
-  `gol_kemasukan` int(10) NOT NULL,
-  `selisih_gol` int(10) NOT NULL,
-  `poin` int(10) NOT NULL,
-  `peringkat` int(10) NOT NULL
+  `main` int(3) NOT NULL,
+  `menang` int(3) NOT NULL,
+  `seri` int(3) NOT NULL,
+  `kalah` int(3) NOT NULL,
+  `gol_masuk` int(3) NOT NULL,
+  `gol_kemasukan` int(3) NOT NULL,
+  `selisih_gol` int(3) NOT NULL,
+  `poin` int(3) NOT NULL,
+  `peringkat` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -46,23 +46,23 @@ CREATE TABLE `klasemen` (
 --
 
 INSERT INTO `klasemen` (`id_klasemen`, `id_tim`, `main`, `menang`, `seri`, `kalah`, `gol_masuk`, `gol_kemasukan`, `selisih_gol`, `poin`, `peringkat`) VALUES
-(1, 10, 34, 28, 3, 3, 81, 34, 47, 87, 1),
-(2, 4, 32, 18, 4, 10, 60, 45, 15, 58, 2),
-(3, 16, 33, 17, 7, 9, 54, 45, 9, 58, 3),
+(1, 10, 28, 22, 3, 3, 64, 26, 38, 69, 1),
+(2, 16, 32, 17, 7, 8, 53, 42, 11, 58, 2),
+(3, 4, 31, 18, 3, 10, 57, 42, 15, 57, 3),
 (4, 1, 34, 16, 8, 10, 56, 48, 8, 56, 4),
 (5, 8, 32, 16, 7, 9, 46, 33, 13, 55, 5),
-(6, 14, 33, 14, 9, 10, 60, 51, 9, 51, 6),
-(7, 5, 33, 15, 6, 12, 54, 50, 4, 51, 7),
-(8, 3, 31, 13, 6, 12, 41, 36, 5, 45, 8),
-(9, 7, 32, 12, 9, 11, 48, 46, 2, 45, 9),
-(10, 9, 33, 13, 6, 14, 44, 45, -1, 45, 10),
-(11, 2, 32, 12, 9, 11, 54, 57, -3, 45, 11),
-(12, 12, 33, 11, 8, 14, 49, 55, -6, 41, 12),
-(13, 15, 33, 9, 9, 15, 39, 53, -14, 36, 13),
-(14, 6, 31, 9, 8, 14, 35, 43, -8, 35, 14),
-(15, 18, 33, 7, 6, 20, 40, 58, -18, 27, 15),
-(16, 17, 32, 4, 14, 14, 31, 51, -20, 26, 16),
-(17, 11, 32, 6, 8, 18, 28, 49, -21, 26, 17),
+(6, 14, 31, 14, 8, 9, 55, 45, 10, 50, 6),
+(7, 5, 33, 14, 6, 13, 53, 54, -1, 48, 7),
+(8, 9, 32, 13, 6, 13, 44, 44, 0, 45, 8),
+(9, 2, 32, 12, 9, 11, 54, 57, -3, 45, 9),
+(10, 3, 30, 12, 6, 12, 41, 37, 4, 42, 10),
+(11, 7, 31, 11, 9, 11, 45, 44, 1, 42, 11),
+(12, 12, 32, 11, 8, 13, 48, 52, -4, 41, 12),
+(13, 15, 32, 10, 9, 13, 42, 50, -8, 39, 13),
+(14, 6, 32, 10, 8, 14, 39, 46, -7, 38, 14),
+(15, 18, 32, 7, 6, 19, 37, 54, -17, 27, 15),
+(16, 11, 31, 6, 8, 17, 28, 47, -19, 26, 16),
+(17, 17, 32, 4, 14, 14, 31, 51, -20, 26, 17),
 (18, 13, 33, 4, 11, 18, 39, 60, -21, 23, 18);
 
 -- --------------------------------------------------------
@@ -205,7 +205,6 @@ INSERT INTO `pertandingan` (`id_pertandingan`, `tanggal_pertandingan`, `tim_home
 (221, '2025-12-22', 18, 10, 0, 4),
 (222, '2026-01-05', 12, 9, 2, 1),
 (223, '2025-12-23', 1, 6, 2, 1),
-(224, '2026-01-03', 10, 11, 2, 0),
 (225, '2026-01-03', 4, 17, 1, 1),
 (226, '2026-01-03', 6, 8, 1, 2),
 (227, '2026-01-04', 13, 14, 1, 3),
@@ -298,7 +297,6 @@ INSERT INTO `pertandingan` (`id_pertandingan`, `tanggal_pertandingan`, `tim_home
 (315, '2026-04-03', 5, 16, 4, 2),
 (316, '2026-04-04', 17, 13, 1, 1),
 (317, '2026-04-04', 8, 14, 2, 2),
-(318, '2026-04-05', 3, 10, 2, 3),
 (319, '2026-04-05', 6, 4, 2, 1),
 (320, '2026-04-05', 18, 9, 3, 0),
 (321, '2026-04-06', 12, 11, 3, 0),
@@ -315,14 +313,12 @@ INSERT INTO `pertandingan` (`id_pertandingan`, `tanggal_pertandingan`, `tim_home
 (332, '2026-04-17', 3, 16, 2, 1),
 (333, '2026-04-17', 8, 6, 2, 1),
 (334, '2026-04-18', 1, 13, 2, 2),
-(335, '2026-04-18', 15, 10, 1, 2),
 (336, '2026-04-18', 17, 4, 2, 2),
 (337, '2026-04-19', 12, 14, 1, 2),
 (338, '2026-04-19', 2, 7, 2, 1),
 (339, '2026-04-20', 18, 11, 2, 2),
 (340, '2026-04-20', 5, 9, 2, 1),
 (341, '2026-04-22', 13, 3, 1, 2),
-(342, '2026-04-22', 16, 10, 1, 3),
 (343, '2026-04-23', 7, 8, 1, 0),
 (344, '2026-04-23', 17, 12, 1, 1),
 (345, '2026-04-23', 14, 2, 2, 1),
@@ -336,7 +332,6 @@ INSERT INTO `pertandingan` (`id_pertandingan`, `tanggal_pertandingan`, `tim_home
 (355, '2026-04-29', 12, 4, 2, 3),
 (356, '2026-04-29', 5, 11, 1, 1),
 (357, '2026-04-30', 16, 14, 1, 1),
-(358, '2026-04-30', 3, 9, 1, 0),
 (359, '2026-05-02', 8, 15, 1, 1),
 (360, '2026-05-02', 7, 13, 2, 2),
 (361, '2026-05-03', 12, 1, 2, 2),
@@ -344,9 +339,7 @@ INSERT INTO `pertandingan` (`id_pertandingan`, `tanggal_pertandingan`, `tim_home
 (363, '2026-05-04', 9, 16, 1, 3),
 (364, '2026-05-04', 17, 3, 1, 6),
 (365, '2026-05-04', 11, 10, 1, 2),
-(366, '2026-05-05', 4, 14, 3, 3),
 (368, '2026-05-08', 18, 12, 3, 1),
-(369, '2026-05-08', 15, 5, 0, 2),
 (370, '2026-05-09', 1, 17, 2, 0),
 (371, '2026-05-09', 13, 8, 0, 1),
 (372, '2026-05-10', 14, 11, 2, 0),
@@ -355,9 +348,7 @@ INSERT INTO `pertandingan` (`id_pertandingan`, `tanggal_pertandingan`, `tim_home
 (376, '2026-05-11', 2, 4, 4, 3),
 (377, '2026-05-15', 18, 8, 0, 2),
 (378, '2026-05-15', 15, 1, 4, 2),
-(379, '2026-05-16', 12, 10, 1, 3),
 (380, '2026-05-16', 13, 5, 0, 3),
-(381, '2026-05-16', 7, 14, 3, 2),
 (382, '2026-05-17', 2, 3, 1, 1),
 (383, '2026-05-17', 17, 9, 1, 3),
 (384, '2026-05-17', 11, 4, 1, 2),
@@ -366,7 +357,6 @@ INSERT INTO `pertandingan` (`id_pertandingan`, `tanggal_pertandingan`, `tim_home
 (387, '2026-05-23', 14, 13, 2, 3),
 (388, '2026-05-23', 8, 12, 4, 2),
 (389, '2026-05-23', 5, 2, 4, 1),
-(390, '2026-05-23', 10, 18, 4, 3),
 (392, '2026-05-23', 9, 11, 0, 0),
 (394, '2026-05-23', 1, 16, 3, 2),
 (395, '2026-05-23', 4, 7, 3, 2),
@@ -377,7 +367,9 @@ INSERT INTO `pertandingan` (`id_pertandingan`, `tanggal_pertandingan`, `tim_home
 (401, '2025-12-02', 10, 13, 1, 1),
 (402, '2026-05-26', 1, 14, 1, 3),
 (403, '2025-11-25', 10, 3, 0, 2),
-(405, '2025-11-14', 6, 17, 2, 1);
+(405, '2025-11-14', 6, 17, 2, 1),
+(406, '2025-12-06', 3, 6, 3, 4),
+(407, '2025-12-05', 15, 5, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -400,7 +392,7 @@ CREATE TABLE `tim` (
 --
 
 INSERT INTO `tim` (`id_tim`, `nama_tim`, `kotaAsal`, `pelatih`, `stadion`, `Logo Tim`, `foto_tim`) VALUES
-(1, 'AREMA FC', 'MALANG', 'MARCOS VINICIUS SANTOS GONCALV', 'KANJURUHAN', 'https://upload.wikimedia.org/wikipedia/id/thumb/4/40/Logo_Arema_FC_2017_logo.svg/270px-Logo_Arema_FC_2017_logo.svg.png', 'https://assets.ligaindonesiabaru.com/uploads/images/club/lineup_AREMA_FC_1758695072.JPG'),
+(1, 'AREMA FC', 'MALANG', 'MARCOS VINI SANTOS GONCALVES', 'KANJURUHAN', 'https://upload.wikimedia.org/wikipedia/id/thumb/4/40/Logo_Arema_FC_2017_logo.svg/270px-Logo_Arema_FC_2017_logo.svg.png', 'https://assets.ligaindonesiabaru.com/uploads/images/club/lineup_AREMA_FC_1758695072.JPG'),
 (2, 'BALI UNITED FC', 'BALI', 'JAN JANSEN', 'KAPTEN I WAYAN DIPTA', 'https://upload.wikimedia.org/wikipedia/id/thumb/5/5e/Bali_United_logo.svg/270px-Bali_United_logo.svg.png', 'https://baliutd.oss-ap-southeast-5.aliyuncs.com//files/uploads/news/image/2025/Sep/25/68d517d52076b/whatsapp-image-2025-09-25-at-16-45-55-1.jpeg'),
 (3, 'BHAYANGKARA PRESISI LAMPUNG FC', 'BANDAR LAMPUNG', 'PAUL CHRISTOPHER MUNSTER', 'PKOR SUMPAH PEMUDA', 'https://upload.wikimedia.org/wikipedia/id/thumb/f/f3/Logo_Bhayangkara_FC.png/500px-Logo_Bhayangkara_FC.png', 'https://assets.ligaindonesiabaru.com/uploads/images/news/Bhayangkara-Presisi-Aktif-Pada-Bursa-Transfer-Putaran-Kedua-1699686948.JPG'),
 (4, 'BORNEO FC ', 'SAMARINDA', 'FABIO ARAUJO LEFUNDES', 'SEGIRI', 'https://upload.wikimedia.org/wikipedia/id/thumb/4/4d/Logo_Borneo_FC.svg/300px-Logo_Borneo_FC.svg.png', 'https://cdn.grid.id/crop/0x0:0x0/700x465/photo/2025/01/16/borneo-fcjpg-20250116075929.jpg'),
@@ -437,9 +429,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `username`, `password`) VALUES
-(1, 'hendri@gmail.com', 'hipsty17', '123240066'),
-(2, 'restu@gmail.com', 'restufrmnsyh', '123240050'),
-(3, 'zenmok@gmail.com', 'zentiaw', '123240061');
+(1, 'admin@gmail.com', 'admin', 'admin123'),
+(2, 'hendri@gmail.com', 'hipsty17', '123240066'),
+(3, 'restu@gmail.com', 'restufrmnsyh', '123240050'),
+(4, 'zenmok@gmail.com', 'zentiaw', '123240061'),
+(5, 'deva@gmail.com', 'deva123', '123240080'),
+(6, 'lintang@gmail.com', 'lintangzomok', 'lintang123');
 
 --
 -- Indexes for dumped tables
@@ -486,13 +481,13 @@ ALTER TABLE `klasemen`
 -- AUTO_INCREMENT for table `pertandingan`
 --
 ALTER TABLE `pertandingan`
-  MODIFY `id_pertandingan` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=406;
+  MODIFY `id_pertandingan` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=408;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
