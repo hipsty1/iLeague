@@ -273,7 +273,8 @@
             echo '<p class="text-center text-muted">Belum ada data tim.</p>';
         }
         ?>
-    </div>
+      </div>
+    </main>
 
     <!-- SPONSOR STRIP (baru, sebelum footer) -->
     <section class="container my-5">

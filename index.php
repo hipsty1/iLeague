@@ -642,43 +642,43 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-// === Points utility ===
-function getPoints(){ return parseInt(localStorage.getItem('points') || '0', 10); }
-function setPoints(v){ localStorage.setItem('points', String(v)); }
-// Award points with toast
-function awardPoints(amount, reason){
-  const now = getPoints() + amount;
-  setPoints(now);
-  // Show toast if host page has a toast container
-  let tEl = document.getElementById('pointsToast');
-  if(!tEl){
-    const wrap = document.createElement('div');
-    wrap.className = 'position-fixed bottom-0 end-0 p-3'; wrap.style.zIndex = '1080'; wrap.innerHTML = `
-      <div id="pointsToast" class="toast text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-          <div class="toast-body" id="pointsToastMsg"></div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-      </div>`;
-    document.body.appendChild(wrap);
-    tEl = document.getElementById('pointsToast');
-  }
-  document.getElementById('pointsToastMsg').textContent = `+${amount} poin ${reason ? '('+reason+')' : ''}. Total: ${now}`;
-  (new bootstrap.Toast(tEl)).show();
-}
+    <script>
+      // === Points utility ===
+      function getPoints(){ return parseInt(localStorage.getItem('points') || '0', 10); }
+      function setPoints(v){ localStorage.setItem('points', String(v)); }
+      // Award points with toast
+      function awardPoints(amount, reason){
+        const now = getPoints() + amount;
+        setPoints(now);
+        // Show toast if host page has a toast container
+        let tEl = document.getElementById('pointsToast');
+        if(!tEl){
+          const wrap = document.createElement('div');
+          wrap.className = 'position-fixed bottom-0 end-0 p-3'; wrap.style.zIndex = '1080'; wrap.innerHTML = `
+            <div id="pointsToast" class="toast text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="d-flex">
+                <div class="toast-body" id="pointsToastMsg"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            </div>`;
+          document.body.appendChild(wrap);
+          tEl = document.getElementById('pointsToast');
+        }
+        document.getElementById('pointsToastMsg').textContent = `+${amount} poin ${reason ? '('+reason+')' : ''}. Total: ${now}`;
+        (new bootstrap.Toast(tEl)).show();
+      }
 
-document.addEventListener('DOMContentLoaded', function(){
-  // Clicks on news cards & top stories
-  document.querySelectorAll('.news-card a, .story-item, .hero-card .img-wrap').forEach(function(el){
-    el.addEventListener('click', function(ev){
-      awardPoints(10, 'baca berita');
-      // allow navigation; if href="#" prevent to avoid jumping
-      if(el.matches('.story-item')) ev.preventDefault();
-    });
-  });
-});
+      document.addEventListener('DOMContentLoaded', function(){
+        // Clicks on news cards & top stories
+        document.querySelectorAll('.news-card a, .story-item, .hero-card .img-wrap').forEach(function(el){
+          el.addEventListener('click', function(ev){
+            awardPoints(10, 'baca berita');
+            // allow navigation; if href="#" prevent to avoid jumping
+            if(el.matches('.story-item')) ev.preventDefault();
+          });
+        });
+      });
 
-</script>
-</body>
+    </script>
+  </body>
 </html>

@@ -1,20 +1,20 @@
 <?php 
-    include "../php/connect.php";
-    session_start();
-    // Cek apakah user sudah login
-    $timeout_duration = 600; // durasi timeout dalam detik
-    if(!isset($_SESSION['username'])){
-        echo "<script>alert('Anda Belum Login!'); window.location.href='signin.php';</script>";
-        exit();
-    }
-    // Cek Timeout Session
-    if(isset($_SESSION['start_time']) && (time() - $_SESSION['start_time']) > $timeout_duration){
-        session_unset();
-        session_destroy();
-        echo "<script>alert('Sesi Anda Telah Berakhir. Silakan Login Kembali.'); window.location.href='signin.php';</script>";
-        exit();
-    }
-    $_SESSION['start_time'] = time();
+  include "../php/connect.php";
+  session_start();
+  // Cek apakah user sudah login
+  $timeout_duration = 600; // durasi timeout dalam detik
+  if(!isset($_SESSION['username'])){
+      echo "<script>alert('Anda Belum Login!'); window.location.href='signin.php';</script>";
+      exit();
+  }
+  // Cek Timeout Session
+  if(isset($_SESSION['start_time']) && (time() - $_SESSION['start_time']) > $timeout_duration){
+      session_unset();
+      session_destroy();
+      echo "<script>alert('Sesi Anda Telah Berakhir. Silakan Login Kembali.'); window.location.href='signin.php';</script>";
+      exit();
+  }
+  $_SESSION['start_time'] = time();
 ?>
 
 <!doctype html>
@@ -181,217 +181,218 @@
             </tr>
           </thead>
           <tbody id="tableBody">
-<?php
+            <?php
 
-// Ambil data tim
-$sql = "SELECT id_tim, nama_tim, `Logo Tim` FROM tim";
-$result = $conn->query($sql);
-$klasemen = [];
+            // Ambil data tim
+            $sql = "SELECT id_tim, nama_tim, `Logo Tim` FROM tim";
+            $result = $conn->query($sql);
+            $klasemen = [];
 
-while ($row = $result->fetch_assoc()) {
-  $id = $row['id_tim'];
-  $klasemen[$id] = [
-    'id_tim' => $id,
-    'nama_tim' => $row['nama_tim'],
-    'logo' => $row['Logo Tim'],
-    'main' => 0, 'menang' => 0, 'seri' => 0, 'kalah' => 0,
-    'gol_masuk' => 0, 'gol_kemasukan' => 0, 'poin' => 0
-  ];
-}
+            while ($row = $result->fetch_assoc()) {
+              $id = $row['id_tim'];
+              $klasemen[$id] = [
+                'id_tim' => $id,
+                'nama_tim' => $row['nama_tim'],
+                'logo' => $row['Logo Tim'],
+                'main' => 0, 'menang' => 0, 'seri' => 0, 'kalah' => 0,
+                'gol_masuk' => 0, 'gol_kemasukan' => 0, 'poin' => 0
+              ];
+            }
 
-// Ambil data pertandingan
-$match = $conn->query("SELECT * FROM pertandingan");
-while ($m = $match->fetch_assoc()) {
-  $home = $m['tim_home'];
-  $away = $m['tim_away'];
-  $skorH = $m['skor_tim_home'];
-  $skorA = $m['skor_tim_away'];
+            // Ambil data pertandingan
+            $match = $conn->query("SELECT * FROM pertandingan");
+            while ($m = $match->fetch_assoc()) {
+              $home = $m['tim_home'];
+              $away = $m['tim_away'];
+              $skorH = $m['skor_tim_home'];
+              $skorA = $m['skor_tim_away'];
 
-  // Main & Gol
-  $klasemen[$home]['main']++;
-  $klasemen[$away]['main']++;
-  $klasemen[$home]['gol_masuk'] += $skorH;
-  $klasemen[$home]['gol_kemasukan'] += $skorA;
-  $klasemen[$away]['gol_masuk'] += $skorA;
-  $klasemen[$away]['gol_kemasukan'] += $skorH;
+              // Main & Gol
+              $klasemen[$home]['main']++;
+              $klasemen[$away]['main']++;
+              $klasemen[$home]['gol_masuk'] += $skorH;
+              $klasemen[$home]['gol_kemasukan'] += $skorA;
+              $klasemen[$away]['gol_masuk'] += $skorA;
+              $klasemen[$away]['gol_kemasukan'] += $skorH;
 
-  // Menang / Seri / Kalah / Poin
-  if ($skorH > $skorA) {
-    $klasemen[$home]['menang']++;
-    $klasemen[$away]['kalah']++;
-    $klasemen[$home]['poin'] += 3;
-  } elseif ($skorH < $skorA) {
-    $klasemen[$away]['menang']++;
-    $klasemen[$home]['kalah']++;
-    $klasemen[$away]['poin'] += 3;
-  } else {
-    $klasemen[$home]['seri']++;
-    $klasemen[$away]['seri']++;
-    $klasemen[$home]['poin']++;
-    $klasemen[$away]['poin']++;
-  }
-}
+              // Menang / Seri / Kalah / Poin
+              if ($skorH > $skorA) {
+                $klasemen[$home]['menang']++;
+                $klasemen[$away]['kalah']++;
+                $klasemen[$home]['poin'] += 3;
+              } elseif ($skorH < $skorA) {
+                $klasemen[$away]['menang']++;
+                $klasemen[$home]['kalah']++;
+                $klasemen[$away]['poin'] += 3;
+              } else {
+                $klasemen[$home]['seri']++;
+                $klasemen[$away]['seri']++;
+                $klasemen[$home]['poin']++;
+                $klasemen[$away]['poin']++;
+              }
+            }
 
-// Urutkan
-usort($klasemen, function($a, $b){
-  if ($a['poin'] != $b['poin']) return $b['poin'] - $a['poin'];
-  $sgA = $a['gol_masuk'] - $a['gol_kemasukan'];
-  $sgB = $b['gol_masuk'] - $b['gol_kemasukan'];
-  if ($sgA != $sgB) return $sgB - $sgA;
-  return $b['gol_masuk'] - $a['gol_masuk'];
-});
+            // Urutkan
+            usort($klasemen, function($a, $b){
+              if ($a['poin'] != $b['poin']) return $b['poin'] - $a['poin'];
+              $sgA = $a['gol_masuk'] - $a['gol_kemasukan'];
+              $sgB = $b['gol_masuk'] - $b['gol_kemasukan'];
+              if ($sgA != $sgB) return $sgB - $sgA;
+              return $b['gol_masuk'] - $a['gol_masuk'];
+            });
 
-// Simpan ke tabel klasemen
-$conn->query("TRUNCATE TABLE klasemen");
-$pos = 1;
-foreach ($klasemen as $t) {
-  $sg = $t['gol_masuk'] - $t['gol_kemasukan'];
-  $stmt = $conn->prepare("
-    INSERT INTO klasemen (id_tim, main, menang, seri, kalah, gol_masuk, gol_kemasukan, selisih_gol, poin, peringkat)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  ");
-  $stmt->bind_param("iiiiiiiiii",
-    $t['id_tim'], $t['main'], $t['menang'], $t['seri'], $t['kalah'],
-    $t['gol_masuk'], $t['gol_kemasukan'], $sg, $t['poin'], $pos
-  );
-  $stmt->execute();
+            // Simpan ke tabel klasemen
+            $conn->query("TRUNCATE TABLE klasemen");
+            $pos = 1;
+            foreach ($klasemen as $t) {
+              $sg = $t['gol_masuk'] - $t['gol_kemasukan'];
+              $stmt = $conn->prepare("
+                INSERT INTO klasemen (id_tim, main, menang, seri, kalah, gol_masuk, gol_kemasukan, selisih_gol, poin, peringkat)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              ");
+              $stmt->bind_param("iiiiiiiiii",
+                $t['id_tim'], $t['main'], $t['menang'], $t['seri'], $t['kalah'],
+                $t['gol_masuk'], $t['gol_kemasukan'], $sg, $t['poin'], $pos
+              );
+              $stmt->execute();
 
-  echo "<tr>
-    <td class='pos'>{$pos}</td>
-    <td class='text-start'>
-      <div class='team-cell'>
-        <img src='{$t['logo']}' alt='logo' class='crest'>
-        <span>{$t['nama_tim']}</span>
-      </div>
-    </td>
-    <td>{$t['main']}</td>
-    <td>{$t['menang']}</td>
-    <td>{$t['seri']}</td>
-    <td>{$t['kalah']}</td>
-    <td>{$t['gol_masuk']}</td>
-    <td>{$t['gol_kemasukan']}</td>
-    <td>{$sg}</td>
-    <td>{$t['poin']}</td>
-  </tr>";
-  $pos++;
-}
-?>
-</tbody>
+              echo "<tr>
+                <td class='pos'>{$pos}</td>
+                <td class='text-start'>
+                  <div class='team-cell'>
+                    <img src='{$t['logo']}' alt='logo' class='crest'>
+                    <span>{$t['nama_tim']}</span>
+                  </div>
+                </td>
+                <td>{$t['main']}</td>
+                <td>{$t['menang']}</td>
+                <td>{$t['seri']}</td>
+                <td>{$t['kalah']}</td>
+                <td>{$t['gol_masuk']}</td>
+                <td>{$t['gol_kemasukan']}</td>
+                <td>{$sg}</td>
+                <td>{$t['poin']}</td>
+              </tr>";
+              $pos++;
+            }
+            ?>
+          </tbody>
 
         </table>
       </div>
     </section>
+  </main>
 
-    <!-- SPONSOR STRIP (baru, sebelum footer) -->
-    <section class="container my-5">
-      <div class="sponsor-strip py-4 px-2 px-md-3">
-        <div
-          class="d-flex justify-content-center align-items-center flex-wrap gap-4 gap-md-5"
-        >
-          <div class="text-center">
-            <img
-              class="sponsor-logo"
-              src="https://logo.clearbit.com/ea.com"
-              alt="EA Sports"
-            />
-            <div class="sponsor-role">Lead Partner</div>
-          </div>
-          <div class="text-center">
-            <img
-              class="sponsor-logo"
-              src="https://logo.clearbit.com/barclays.com"
-              alt="Barclays"
-            />
-            <div class="sponsor-role">Official Bank</div>
-          </div>
-          <div class="text-center">
-            <img
-              class="sponsor-logo"
-              src="https://logo.clearbit.com/coca-cola.com"
-              alt="Coca‑Cola"
-            />
-            <div class="sponsor-role">Official Soft Drink</div>
-          </div>
-          <div class="text-center">
-            <img
-              class="sponsor-logo"
-              src="https://logo.clearbit.com/microsoft.com"
-              alt="Microsoft"
-            />
-            <div class="sponsor-role">Official Cloud &amp; AI Partner</div>
-          </div>
-          <div class="text-center">
-            <img
-              class="sponsor-logo"
-              src="https://logo.clearbit.com/puma.com"
-              alt="Puma"
-            />
-            <div class="sponsor-role">Official Ball</div>
-          </div>
-          <div class="text-center">
-            <img
-              class="sponsor-logo"
-              src="https://logo.clearbit.com/averydennison.com"
-              alt="Avery Dennison"
-            />
-            <div class="sponsor-role">Official Licensee</div>
-          </div>
-          <div class="text-center">
-            <img
-              class="sponsor-logo"
-              src="https://logo.clearbit.com/footballmanager.com"
-              alt="Football Manager"
-            />
-            <div class="sponsor-role">Official Licensee</div>
-          </div>
+  <!-- SPONSOR STRIP (baru, sebelum footer) -->
+  <section class="container my-5">
+    <div class="sponsor-strip py-4 px-2 px-md-3">
+      <div
+        class="d-flex justify-content-center align-items-center flex-wrap gap-4 gap-md-5"
+      >
+        <div class="text-center">
+          <img
+            class="sponsor-logo"
+            src="https://logo.clearbit.com/ea.com"
+            alt="EA Sports"
+          />
+          <div class="sponsor-role">Lead Partner</div>
+        </div>
+        <div class="text-center">
+          <img
+            class="sponsor-logo"
+            src="https://logo.clearbit.com/barclays.com"
+            alt="Barclays"
+          />
+          <div class="sponsor-role">Official Bank</div>
+        </div>
+        <div class="text-center">
+          <img
+            class="sponsor-logo"
+            src="https://logo.clearbit.com/coca-cola.com"
+            alt="Coca‑Cola"
+          />
+          <div class="sponsor-role">Official Soft Drink</div>
+        </div>
+        <div class="text-center">
+          <img
+            class="sponsor-logo"
+            src="https://logo.clearbit.com/microsoft.com"
+            alt="Microsoft"
+          />
+          <div class="sponsor-role">Official Cloud &amp; AI Partner</div>
+        </div>
+        <div class="text-center">
+          <img
+            class="sponsor-logo"
+            src="https://logo.clearbit.com/puma.com"
+            alt="Puma"
+          />
+          <div class="sponsor-role">Official Ball</div>
+        </div>
+        <div class="text-center">
+          <img
+            class="sponsor-logo"
+            src="https://logo.clearbit.com/averydennison.com"
+            alt="Avery Dennison"
+          />
+          <div class="sponsor-role">Official Licensee</div>
+        </div>
+        <div class="text-center">
+          <img
+            class="sponsor-logo"
+            src="https://logo.clearbit.com/footballmanager.com"
+            alt="Football Manager"
+          />
+          <div class="sponsor-role">Official Licensee</div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- FOOTER (tanpa 'Unduh' & 'Media Sosial') -->
-    <footer class="pt-5 mt-5">
-      <div class="container pb-4">
-        <div class="row g-4">
-          <div class="col-6 col-lg-3">
-            <div class="footer-title">LIGA INDONESIA</div>
-            <ul class="list-unstyled small mb-0">
-              <li class="mb-2"><a href="index.php">Beranda</a></li>
-              <li class="mb-2">
-                <a href="pages/match.php">Jadwal Dan Hasil Pertandingan</a>
-              </li>
-              <li class="mb-2"><a href="pages/klasemen.php">Klasemen</a></li>
-              <li class="mb-2"><a href="pages/tim.php">Klub</a></li>
-            </ul>
-          </div>
-          <div class="col-12 col-lg-3">
-            <div class="footer-title">KONTAK KAMI</div>
-            <ul class="list-unstyled small">
-              <li class="mb-2 fw-semibold">PT Liga Indonesia Baru</li>
-              <li class="mb-2">
-                Menara Mandiri 2, Lt 19<br />Jl. Jend. Sudirman, Kav 54-55,<br />Jakarta
-                12190
-              </li>
-              <li class="mb-2">
-                <i class="bi bi-telephone me-2"></i>+62 21 526 6777
-              </li>
-              <li class="mb-2">
-                <i class="bi bi-telephone me-2"></i>+62 21 526 6747
-              </li>
-            </ul>
-          </div>
+  <!-- FOOTER (tanpa 'Unduh' & 'Media Sosial') -->
+  <footer class="pt-5 mt-5">
+    <div class="container pb-4">
+      <div class="row g-4">
+        <div class="col-6 col-lg-3">
+          <div class="footer-title">LIGA INDONESIA</div>
+          <ul class="list-unstyled small mb-0">
+            <li class="mb-2"><a href="index.php">Beranda</a></li>
+            <li class="mb-2">
+              <a href="pages/match.php">Jadwal Dan Hasil Pertandingan</a>
+            </li>
+            <li class="mb-2"><a href="pages/klasemen.php">Klasemen</a></li>
+            <li class="mb-2"><a href="pages/tim.php">Klub</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-lg-3">
+          <div class="footer-title">KONTAK KAMI</div>
+          <ul class="list-unstyled small">
+            <li class="mb-2 fw-semibold">PT Liga Indonesia Baru</li>
+            <li class="mb-2">
+              Menara Mandiri 2, Lt 19<br />Jl. Jend. Sudirman, Kav 54-55,<br />Jakarta
+              12190
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-telephone me-2"></i>+62 21 526 6777
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-telephone me-2"></i>+62 21 526 6747
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="copyright py-3">
-        <div
-          class="container small d-flex justify-content-between align-items-center"
+    </div>
+    <div class="copyright py-3">
+      <div
+        class="container small d-flex justify-content-between align-items-center"
+      >
+        <div>© 2025 ILeague. All Rights Reserved</div>
+        <a href="#" class="text-decoration-none"
+          ><i class="bi bi-arrow-up-circle"></i> Kembali ke atas</a
         >
-          <div>© 2025 ILeague. All Rights Reserved</div>
-          <a href="#" class="text-decoration-none"
-            ><i class="bi bi-arrow-up-circle"></i> Kembali ke atas</a
-          >
-        </div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
