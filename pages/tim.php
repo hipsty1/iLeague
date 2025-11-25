@@ -275,83 +275,116 @@
         ?>
     </div>
 
-    <!-- SPONSOR STRIP -->
-    <section id="sponsors" class="sponsor-strip">
-      <div class="container">
-        <div class="d-flex justify-content-center align-items-center flex-wrap gap-4 gap-md-5">
+    <!-- SPONSOR STRIP (baru, sebelum footer) -->
+    <section class="container my-5">
+      <div class="sponsor-strip py-4 px-2 px-md-3">
+        <div
+          class="d-flex justify-content-center align-items-center flex-wrap gap-4 gap-md-5"
+        >
           <div class="text-center">
-            <img class="sponsor-logo" src="https://logo.clearbit.com/ea.com" alt="EA Sports">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/ea.com"
+              alt="EA Sports"
+            />
             <div class="sponsor-role">Lead Partner</div>
           </div>
           <div class="text-center">
-            <img class="sponsor-logo" src="https://img.logo.dev/adobe.com?token=live_6a1a28fd-6420-4492-aeb0-b297461d9de2&size=128&retina=false&format=png&theme=dark" alt="Adobe">
-            <div class="sponsor-role">Official Creativity Partner</div>
-          </div>
-          <div class="text-center">
-            <img class="sponsor-logo" src="https://logo.clearbit.com/barclays.com" alt="Barclays">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/barclays.com"
+              alt="Barclays"
+            />
             <div class="sponsor-role">Official Bank</div>
           </div>
           <div class="text-center">
-            <img class="sponsor-logo" src="https://logo.clearbit.com/coca-cola.com" alt="Coca‑Cola">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/coca-cola.com"
+              alt="Coca‑Cola"
+            />
             <div class="sponsor-role">Official Soft Drink</div>
           </div>
           <div class="text-center">
-            <img class="sponsor-logo" src="https://logo.clearbit.com/guinness.com" alt="Guinness">
-            <div class="sponsor-role">Official Beer</div>
-          </div>
-          <div class="text-center">
-            <img class="sponsor-logo" src="https://logo.clearbit.com/microsoft.com" alt="Microsoft">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/microsoft.com"
+              alt="Microsoft"
+            />
             <div class="sponsor-role">Official Cloud &amp; AI Partner</div>
           </div>
           <div class="text-center">
-            <img class="sponsor-logo" src="https://logo.clearbit.com/puma.com" alt="Puma">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/puma.com"
+              alt="Puma"
+            />
             <div class="sponsor-role">Official Ball</div>
           </div>
           <div class="text-center">
-            <img class="sponsor-logo" src="https://logo.clearbit.com/averydennison.com" alt="Avery Dennison">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/averydennison.com"
+              alt="Avery Dennison"
+            />
             <div class="sponsor-role">Official Licensee</div>
           </div>
           <div class="text-center">
-            <img class="sponsor-logo" src="https://logo.clearbit.com/footballmanager.com" alt="Football Manager">
+            <img
+              class="sponsor-logo"
+              src="https://logo.clearbit.com/footballmanager.com"
+              alt="Football Manager"
+            />
             <div class="sponsor-role">Official Licensee</div>
           </div>
         </div>
       </div>
     </section>
 
-  </main>
-
-  <!-- FOOTER (sama seperti index) -->
-  <footer class="pt-5 mt-5">
-    <div class="container pb-4">
-      <div class="row g-4">
-        <div class="col-6 col-lg-3">
-          <div class="footer-title">LIGA INDONESIA</div>
-          <ul class="list-unstyled small mb-0">
-            <li class="mb-2"><a href="../index.php">Beranda</a></li>
-            <li class="mb-2"><a href="match.php">Jadwal Dan Hasil Pertandingan</a></li>
-            <li class="mb-2"><a href="klasemen.php">Klasemen</a></li>
-            <li class="mb-2"><a href="tim.php">Klub</a></li>
-          </ul>
-        </div>
-        <div class="col-12 col-lg-3">
-          <div class="footer-title">KONTAK KAMI</div>
-          <ul class="list-unstyled small">
-            <li class="mb-2 fw-semibold">PT Liga Indonesia Baru</li>
-            <li class="mb-2">Menara Mandiri 2, Lt 19<br>Jl. Jend. Sudirman, Kav 54-55,<br>Jakarta 12190</li>
-            <li class="mb-2"><i class="bi bi-telephone me-2"></i>+62 21 526 6777</li>
-            <li class="mb-2"><i class="bi bi-telephone me-2"></i>+62 21 526 6747</li>
-          </ul>
+    <!-- FOOTER (tanpa 'Unduh' & 'Media Sosial') -->
+    <footer class="pt-5 mt-5">
+      <div class="container pb-4">
+        <div class="row g-4">
+          <div class="col-6 col-lg-3">
+            <div class="footer-title">LIGA INDONESIA</div>
+            <ul class="list-unstyled small mb-0">
+              <li class="mb-2"><a href="index.php">Beranda</a></li>
+              <li class="mb-2">
+                <a href="pages/match.php">Jadwal Dan Hasil Pertandingan</a>
+              </li>
+              <li class="mb-2"><a href="pages/klasemen.php">Klasemen</a></li>
+              <li class="mb-2"><a href="pages/tim.php">Klub</a></li>
+            </ul>
+          </div>
+          <div class="col-12 col-lg-3">
+            <div class="footer-title">KONTAK KAMI</div>
+            <ul class="list-unstyled small">
+              <li class="mb-2 fw-semibold">PT Liga Indonesia Baru</li>
+              <li class="mb-2">
+                Menara Mandiri 2, Lt 19<br />Jl. Jend. Sudirman, Kav 54-55,<br />Jakarta
+                12190
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-telephone me-2"></i>+62 21 526 6777
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-telephone me-2"></i>+62 21 526 6747
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="copyright py-3">
-      <div class="container small d-flex justify-content-between align-items-center">
-        <div>© 2025 ILeague. All Rights Reserved</div>
-        <a href="#" class="text-decoration-none"><i class="bi bi-arrow-up-circle"></i> Kembali ke atas</a>
+      <div class="copyright py-3">
+        <div
+          class="container small d-flex justify-content-between align-items-center"
+        >
+          <div>© 2025 ILeague. All Rights Reserved</div>
+          <a href="#" class="text-decoration-none"
+            ><i class="bi bi-arrow-up-circle"></i> Kembali ke atas</a
+          >
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
