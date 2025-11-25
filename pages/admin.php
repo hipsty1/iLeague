@@ -29,7 +29,7 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] !== 'admin') {
       <a class="navbar-brand fw-bold text-danger" href="#"><i class="bi bi-shield-lock-fill me-2"></i>Panel Admin</a>
       <div class="collapse navbar-collapse show">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="../index.php">Kembali ke Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="signin.php">Log Out</a></li>
         </ul>
       </div>
     </div>
